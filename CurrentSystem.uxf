@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>50</x>
+      <y>240</y>
+      <w>190</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>SpringUtilities
+--
+Resp: Provide utilities
+to help create SpringLayouts
+with Java Swing</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>50</x>
+      <y>360</y>
+      <w>190</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>WebServer
+--
+Resp: GUI containing
+visuals for Server.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>0</x>
+      <y>200</y>
+      <w>300</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>Graphics
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>680</x>
+      <y>420</y>
+      <w>150</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>ConnectionHandler
+--
+Server server
+Socket socket
+--
+getSocket()
+run()
+--
+Resp: Handle a single
+connection to the 
+server.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>230</y>
+      <w>380</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>HTTPRequest
+--
+String method
+String uri
+String version
+Map&lt;String, String&gt; header
+char[] body
+--
++ HTTPRequest read(InputStream input) throws Exception
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>410</y>
+      <w>190</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>HTTPResponse
+--
+String version
+int status
+String phrase
+Map&lt;String, String&gt; header
+File file
+--
+write(OutputStream output)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>620</y>
+      <w>410</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>HTTPResponseFactory
+--
++ fillGeneralHeader(HttpResponse response, String connection)
++ HTTPResponse create200OK(File file, String connection)
++ HTTPResponse create400BadRequest(String connection)
++ HTTPResponse create404NotFound(String connection)
++ HTTPResponse create505NotSupported(String connection)
++ HTTPResponse create304NotModified(String connection)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>980</x>
+      <y>520</y>
+      <w>128</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+Created By</panel_attributes>
+    <additional_attributes>70;100;70;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>450</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>160;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>450</y>
+      <w>180</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>160;230;110;230;110;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>260</y>
+      <w>180</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>160;30;110;30;110;220;30;220</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1460</x>
+      <y>410</y>
+      <w>280</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>Protocol
+--
++ String SPACE
++ String SEPERATOR
++ String SLASH
++ String CR
++ String LF
++ String CRLF
++ String VERSION
++ String GET
++ String OK_CODE
++ String OK_TEXT
++ String MOVED_PERMANENTLY_CODE
++ String MOVED_PERMANENTLY_TEXT
++ String NOT_SUPPORTED_CODE
++ String NOT_SUPPORTED_TEXT
++ String BAD_REQUEST_CODE
++ String BAD_REQUST_TEXT
++ String NOT_FOUND_CODE
++ String NOT_FOUND_TEXT
++ String HOST
++ String CONNECTION
++ String USER_AGENT
++ String DATE
++ String Server
++ String LAST_MODIFIED
++ String CONTENT_LENGTH
++ String CONTENT_TYPE
++ String CHUNK_LENGTH
++ String SERVER_INFO
++ String PROVIDER
++ String AUTHOR
++ String CLOSE
++ String OPEN
++ String DEFAULT_FILE
++ String MIME_TEXT
+--
+String getServerInfo()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1440</x>
+      <y>260</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>ProtocolException
+--
+- int status
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1340</x>
+      <y>480</y>
+      <w>140</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>120;30;80;30;80;210;30;210</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1120</x>
+      <y>480</y>
+      <w>360</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>340;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1310</x>
+      <y>320</y>
+      <w>170</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>150;190;110;190;110;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1310</x>
+      <y>250</y>
+      <w>150</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>130;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>400</x>
+      <y>420</y>
+      <w>230</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>Server
+--
+- WebServer window
+- long connections
+- long serviceTime
+- ServerSocket welcomeSocket
+- boolean stop
+- int port
+- String rootDirectory
+--
+String getRootDirectory()
+int getPort()
+double getServiceRate()
+incrementConnections(long value)
+incrementServiceTime(long value)
+run()
+stop()
+boolean isStoped()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>590</x>
+      <y>290</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Runnable</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1620</x>
+      <y>270</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Exception</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1550</x>
+      <y>250</y>
+      <w>90</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>610</x>
+      <y>310</y>
+      <w>170</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;60;150;60;150;110</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>480</x>
+      <y>310</y>
+      <w>180</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>160;30;160;60;30;60;30;110</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>370</x>
+      <y>200</y>
+      <w>1380</w>
+      <h>850</h>
+    </coordinates>
+    <panel_attributes>Server
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>210</x>
+      <y>360</y>
+      <w>210</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;</panel_attributes>
+    <additional_attributes>30;30;130;30;130;110;190;110</additional_attributes>
+  </element>
+</diagram>

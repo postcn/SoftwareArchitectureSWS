@@ -4,7 +4,7 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>50</x>
+      <x>110</x>
       <y>40</y>
       <w>190</w>
       <h>90</h>
@@ -19,7 +19,7 @@ with Java Swing</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>50</x>
+      <x>110</x>
       <y>160</y>
       <w>190</w>
       <h>70</h>
@@ -33,7 +33,7 @@ visuals for Server.</panel_attributes>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>0</x>
+      <x>60</x>
       <y>0</y>
       <w>300</w>
       <h>260</h>
@@ -45,7 +45,7 @@ bg=orange</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>680</x>
+      <x>740</x>
       <y>220</y>
       <w>150</w>
       <h>160</h>
@@ -66,7 +66,7 @@ server.</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>960</x>
+      <x>1020</x>
       <y>30</y>
       <w>380</w>
       <h>140</h>
@@ -86,7 +86,7 @@ char[] body
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>960</x>
+      <x>1020</x>
       <y>210</y>
       <w>190</w>
       <h>140</h>
@@ -105,7 +105,7 @@ write(OutputStream output)</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>960</x>
+      <x>1020</x>
       <y>420</y>
       <w>460</w>
       <h>150</h>
@@ -124,7 +124,7 @@ write(OutputStream output)</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>980</x>
+      <x>1040</x>
       <y>320</y>
       <w>128</w>
       <h>120</h>
@@ -136,7 +136,7 @@ Created By</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1570</x>
+      <x>1630</x>
       <y>210</y>
       <w>280</w>
       <h>630</h>
@@ -184,7 +184,7 @@ String getServerInfo()</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1440</x>
+      <x>1500</x>
       <y>60</y>
       <w>140</w>
       <h>50</h>
@@ -198,7 +198,7 @@ String getServerInfo()</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1390</x>
+      <x>1450</x>
       <y>280</y>
       <w>200</w>
       <h>230</h>
@@ -209,7 +209,7 @@ String getServerInfo()</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1120</x>
+      <x>1180</x>
       <y>280</y>
       <w>470</w>
       <h>50</h>
@@ -220,7 +220,7 @@ String getServerInfo()</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1310</x>
+      <x>1370</x>
       <y>120</y>
       <w>280</w>
       <h>210</h>
@@ -231,7 +231,7 @@ String getServerInfo()</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1310</x>
+      <x>1370</x>
       <y>50</y>
       <w>150</w>
       <h>50</h>
@@ -242,7 +242,7 @@ String getServerInfo()</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>400</x>
+      <x>460</x>
       <y>220</y>
       <w>230</w>
       <h>290</h>
@@ -271,7 +271,7 @@ boolean isStoped()
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>590</x>
+      <x>650</x>
       <y>90</y>
       <w>100</w>
       <h>50</h>
@@ -283,7 +283,7 @@ Runnable</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>1620</x>
+      <x>1680</x>
       <y>70</y>
       <w>100</w>
       <h>30</h>
@@ -294,7 +294,7 @@ Runnable</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1550</x>
+      <x>1610</x>
       <y>50</y>
       <w>90</w>
       <h>50</h>
@@ -305,7 +305,7 @@ Runnable</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>610</x>
+      <x>670</x>
       <y>110</y>
       <w>170</w>
       <h>130</h>
@@ -316,7 +316,7 @@ Runnable</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>480</x>
+      <x>540</x>
       <y>110</y>
       <w>180</w>
       <h>130</h>
@@ -327,7 +327,7 @@ Runnable</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>210</x>
+      <x>270</x>
       <y>160</y>
       <w>210</w>
       <h>130</h>
@@ -338,7 +338,7 @@ Runnable</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>640</x>
+      <x>700</x>
       <y>630</y>
       <w>400</w>
       <h>50</h>
@@ -351,7 +351,7 @@ Runnable</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>610</x>
+      <x>670</x>
       <y>720</y>
       <w>470</w>
       <h>60</h>
@@ -366,7 +366,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>960</x>
+      <x>1020</x>
       <y>810</y>
       <w>470</w>
       <h>50</h>
@@ -379,7 +379,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>960</x>
+      <x>1020</x>
       <y>880</y>
       <w>470</w>
       <h>50</h>
@@ -392,7 +392,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>960</x>
+      <x>1020</x>
       <y>950</y>
       <w>470</w>
       <h>50</h>
@@ -405,7 +405,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>960</x>
+      <x>1020</x>
       <y>1020</y>
       <w>470</w>
       <h>50</h>
@@ -418,7 +418,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
+      <x>870</x>
       <y>750</y>
       <w>170</w>
       <h>320</h>
@@ -429,7 +429,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
+      <x>870</x>
       <y>750</y>
       <w>170</w>
       <h>250</h>
@@ -440,7 +440,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
+      <x>870</x>
       <y>750</y>
       <w>170</w>
       <h>180</h>
@@ -451,7 +451,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
+      <x>870</x>
       <y>750</y>
       <w>170</w>
       <h>110</h>
@@ -462,7 +462,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>810</x>
+      <x>870</x>
       <y>650</y>
       <w>50</w>
       <h>90</h>
@@ -473,7 +473,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>800</x>
+      <x>860</x>
       <y>260</y>
       <w>180</w>
       <h>50</h>
@@ -484,7 +484,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>800</x>
+      <x>860</x>
       <y>50</y>
       <w>180</w>
       <h>260</h>
@@ -495,7 +495,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>730</x>
+      <x>790</x>
       <y>350</y>
       <w>50</w>
       <h>300</h>
@@ -506,7 +506,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1160</x>
+      <x>1220</x>
       <y>540</y>
       <w>360</w>
       <h>310</h>
@@ -517,7 +517,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1160</x>
+      <x>1220</x>
       <y>540</y>
       <w>360</w>
       <h>380</h>
@@ -528,7 +528,7 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1160</x>
+      <x>1220</x>
       <y>540</y>
       <w>360</w>
       <h>450</h>
@@ -539,12 +539,422 @@ HTTPResponse handle(HTTPRequest request) throws ProtocolException</panel_attribu
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>1160</x>
+      <x>1220</x>
       <y>540</y>
       <w>360</w>
       <h>520</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>30;30;30;100;340;100;340;500;270;500</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1530</x>
+      <y>80</y>
+      <w>520</w>
+      <h>980</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>40;30;40;70;500;70;500;960;30;960</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>430</x>
+      <y>0</y>
+      <w>1640</w>
+      <h>1100</h>
+    </coordinates>
+    <panel_attributes>Java HTTP Server
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>10</x>
+      <y>1130</y>
+      <w>1620</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=:</panel_attributes>
+    <additional_attributes>30;30;1600;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>50</x>
+      <y>1220</y>
+      <w>180</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>ConnectionHandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Note</type>
+    <coordinates>
+      <x>50</x>
+      <y>1170</y>
+      <w>320</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Sequence Diagram for Making a GET Request
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>250</x>
+      <y>1220</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>HTTPRequest</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>380</x>
+      <y>1320</y>
+      <w>190</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>RequestHandlerFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>550</x>
+      <y>1380</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>GetRequestHandler</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>920</x>
+      <y>1420</y>
+      <w>180</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>HTTPResponseFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1130</x>
+      <y>1480</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>HTTPResponse</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>110</x>
+      <y>1220</y>
+      <w>50</w>
+      <h>830</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30;810;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>280</x>
+      <y>1220</y>
+      <w>50</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30;250;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>450</x>
+      <y>1320</y>
+      <w>50</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30;100;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>110</x>
+      <y>1240</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+read</panel_attributes>
+    <additional_attributes>200;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>110</x>
+      <y>1280</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+HTTPRequest</panel_attributes>
+    <additional_attributes>30;50;200;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>300</x>
+      <y>1290</y>
+      <w>20</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>110</x>
+      <y>1320</y>
+      <w>390</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+getRequestHandler(HTTPRequest)</panel_attributes>
+    <additional_attributes>370;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>110</x>
+      <y>1360</y>
+      <w>390</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+RequestHandler</panel_attributes>
+    <additional_attributes>30;50;370;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>470</x>
+      <y>1370</y>
+      <w>20</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>600</x>
+      <y>1380</y>
+      <w>50</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30;290;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>110</x>
+      <y>1420</y>
+      <w>540</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+handle(HTTPRequest)</panel_attributes>
+    <additional_attributes>520;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>620</x>
+      <y>1470</y>
+      <w>20</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>110</x>
+      <y>1620</y>
+      <w>540</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+HTTPResponse</panel_attributes>
+    <additional_attributes>30;50;520;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>790</x>
+      <y>1380</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>File (OS)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>600</x>
+      <y>1450</y>
+      <w>260</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+get File</panel_attributes>
+    <additional_attributes>240;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>810</x>
+      <y>1380</y>
+      <w>50</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30;180;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>600</x>
+      <y>1480</y>
+      <w>260</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+File</panel_attributes>
+    <additional_attributes>30;50;240;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>980</x>
+      <y>1420</y>
+      <w>50</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30;220;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>600</x>
+      <y>1510</y>
+      <w>430</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+createResponse</panel_attributes>
+    <additional_attributes>410;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>830</x>
+      <y>1500</y>
+      <w>20</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>980</x>
+      <y>1540</y>
+      <w>230</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+instantiate</panel_attributes>
+    <additional_attributes>210;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1160</x>
+      <y>1480</y>
+      <w>50</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30;310;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1000</x>
+      <y>1560</y>
+      <w>20</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>600</x>
+      <y>1590</y>
+      <w>430</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+HTTPResponse</panel_attributes>
+    <additional_attributes>30;50;410;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>110</x>
+      <y>1680</y>
+      <w>1100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+write</panel_attributes>
+    <additional_attributes>1080;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1180</x>
+      <y>1730</y>
+      <w>20</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
   </element>
 </diagram>

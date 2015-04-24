@@ -122,6 +122,10 @@ public class HttpRequest {
 		request.uri = tokenizer.nextToken();		// /somedir/page.html
 		request.version = tokenizer.nextToken();	// HTTP/1.1
 		
+		if (!request.version.equals(Protocol.VERSION)) {
+			throw new ProtocolException(Protocol.NOT_SUPPORTED_CODE, Protocol.NOT_SUPPORTED_TEXT);
+		}
+		
 		// Rest of the request is a header that maps keys to values
 		// e.g. Host: www.rose-hulman.edu
 		// We will convert both the strings to lower case to be able to search later

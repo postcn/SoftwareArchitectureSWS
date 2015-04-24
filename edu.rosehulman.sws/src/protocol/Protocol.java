@@ -39,10 +39,16 @@ public class Protocol {
     // Some useful protocol elements
     public static final String VERSION = "HTTP/1.1";
     public static final String GET = "GET";
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+    public static final String DELETE = "DELETE";
     
     // Some useful http codes and text
     public static final int OK_CODE = 200;
     public static final String OK_TEXT = "OK";
+    
+    public static final int CREATED_CODE = 201;
+    public static final String CREATED_TEXT = "Created";
     
     public static final int MOVED_PERMANENTLY_CODE = 301;
     public static final String MOVED_PERMANENTLY_TEXT = "Moved Permanently";
@@ -53,8 +59,17 @@ public class Protocol {
     public static final int NOT_FOUND_CODE = 404;
     public static final String NOT_FOUND_TEXT = "Not Found";
     
+    public static final int METHOD_NOT_ALLOWED_CODE = 405;
+    public static final String METHOD_NOT_ALLOWED_TEXT = "Method Not Allowed";
+    
     public static final int NOT_SUPPORTED_CODE = 505;
     public static final String NOT_SUPPORTED_TEXT = "HTTP Version Not Supported";
+    
+    public static final int INTERNAL_SERVER_ERROR_CODE = 500;
+    public static final String INTERNAL_SERVER_ERROR_TEXT = "Internal Server Error";
+    
+    public static final int NOT_MODIFIED_CODE = 304;
+    public static final String NOT_MODIFIED_TEXT = "Not Modified";
 
     // Some useful header elements in request
     public static final String HOST = "Host";
@@ -67,6 +82,7 @@ public class Protocol {
     public static final String LAST_MODIFIED = "Last-Modified";
     public static final String CONTENT_LENGTH = "Content-Length";
     public static final String CONTENT_TYPE = "Content-Type";
+    public static final String LOCATION = "Location";
     
     /**
      * A chunk size to be used when reading a file and sending it to a socket. 

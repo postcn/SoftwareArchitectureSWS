@@ -63,7 +63,7 @@ public class HttpResponseFactory {
 	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
 	 * @return A {@link HttpResponse} object represent 200 status.
 	 */
-	public static HttpResponse create200OK(File file, String connection) {
+	private static HttpResponse create200OK(File file, String connection) {
 		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.OK_CODE, 
 				Protocol.OK_TEXT, new HashMap<String, String>(), file);
 		
@@ -71,22 +71,49 @@ public class HttpResponseFactory {
 		fillGeneralHeader(response, connection);
 		
 		// Lets add last modified date for the file
-		long timeSinceEpoch = file.lastModified();
-		Date modifiedTime = new Date(timeSinceEpoch);
-		response.put(Protocol.LAST_MODIFIED, modifiedTime.toString());
+		if (file != null && file.exists()) {
+			long timeSinceEpoch = file.lastModified();
+			Date modifiedTime = new Date(timeSinceEpoch);
+			response.put(Protocol.LAST_MODIFIED, modifiedTime.toString());
+			
+			// Lets get content length in bytes
+			long length = file.length();
+			response.put(Protocol.CONTENT_LENGTH, length + "");
+			
+			// Lets get MIME type for the file
+			FileNameMap fileNameMap = URLConnection.getFileNameMap();
+			String mime = fileNameMap.getContentTypeFor(file.getName());
+			// The fileNameMap cannot find mime type for all of the documents, e.g. doc, odt, etc.
+			// So we will not add this field if we cannot figure out what a mime type is for the file.
+			// Let browser do this job by itself.
+			if(mime != null) { 
+				response.put(Protocol.CONTENT_TYPE, mime);
+			}
+		}
 		
-		// Lets get content length in bytes
-		long length = file.length();
-		response.put(Protocol.CONTENT_LENGTH, length + "");
+		return response;
+	}
+	
+	private static HttpResponse create201Created(File newFile, String connection) {
+		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.CREATED_CODE, 
+				Protocol.CREATED_TEXT, new HashMap<String, String>(), null);
 		
-		// Lets get MIME type for the file
-		FileNameMap fileNameMap = URLConnection.getFileNameMap();
-		String mime = fileNameMap.getContentTypeFor(file.getName());
-		// The fileNameMap cannot find mime type for all of the documents, e.g. doc, odt, etc.
-		// So we will not add this field if we cannot figure out what a mime type is for the file.
-		// Let browser do this job by itself.
-		if(mime != null) { 
-			response.put(Protocol.CONTENT_TYPE, mime);
+		// Lets fill up header fields with more information
+		fillGeneralHeader(response, connection);
+		
+		// Lets add last modified date for the file
+		if (newFile != null) {
+			response.put(Protocol.LOCATION, newFile.getPath());
+			
+			// Lets get MIME type for the file
+			FileNameMap fileNameMap = URLConnection.getFileNameMap();
+			String mime = fileNameMap.getContentTypeFor(newFile.getName());
+			// The fileNameMap cannot find mime type for all of the documents, e.g. doc, odt, etc.
+			// So we will not add this field if we cannot figure out what a mime type is for the file.
+			// Let browser do this job by itself.
+			if(mime != null) { 
+				response.put(Protocol.CONTENT_TYPE, mime);
+			}
 		}
 		
 		return response;
@@ -98,7 +125,7 @@ public class HttpResponseFactory {
 	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
 	 * @return A {@link HttpResponse} object represent 400 status.
 	 */
-	public static HttpResponse create400BadRequest(String connection) {
+	private static HttpResponse create400BadRequest(String connection) {
 		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.BAD_REQUEST_CODE, 
 				Protocol.BAD_REQUEST_TEXT, new HashMap<String, String>(), null);
 		
@@ -114,7 +141,7 @@ public class HttpResponseFactory {
 	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
 	 * @return A {@link HttpResponse} object represent 404 status.
 	 */
-	public static HttpResponse create404NotFound(String connection) {
+	private static HttpResponse create404NotFound(String connection) {
 		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.NOT_FOUND_CODE, 
 				Protocol.NOT_FOUND_TEXT, new HashMap<String, String>(), null);
 		
@@ -130,9 +157,14 @@ public class HttpResponseFactory {
 	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
 	 * @return A {@link HttpResponse} object represent 505 status.
 	 */
-	public static HttpResponse create505NotSupported(String connection) {
-		// TODO fill in this method
-		return null;
+	private static HttpResponse create505NotSupported(String connection) {
+		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.NOT_SUPPORTED_CODE, 
+				Protocol.NOT_SUPPORTED_TEXT, new HashMap<String, String>(), null);
+		
+		// Lets fill up the header fields with more information
+		fillGeneralHeader(response, connection);
+		
+		return response;
 	}
 	
 	/**
@@ -141,8 +173,49 @@ public class HttpResponseFactory {
 	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
 	 * @return A {@link HttpResponse} object represent 304 status.
 	 */
-	public static HttpResponse create304NotModified(String connection) {
+	private static HttpResponse create304NotModified(String connection) {
 		// TODO fill in this method
 		return null;
+	}
+	
+	private static HttpResponse create500InternalServerError(String connection) {
+		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.INTERNAL_SERVER_ERROR_CODE, 
+				Protocol.INTERNAL_SERVER_ERROR_TEXT, new HashMap<String, String>(), null);
+		
+		// Lets fill up the header fields with more information
+		fillGeneralHeader(response, connection);
+		
+		return response;
+	}
+	
+	private static HttpResponse create405MethodNotAllowed(String connection) {
+		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.METHOD_NOT_ALLOWED_CODE, 
+				Protocol.METHOD_NOT_ALLOWED_TEXT, new HashMap<String, String>(), null);
+		
+		// Lets fill up the header fields with more information
+		fillGeneralHeader(response, connection);
+		
+		return response;
+	}
+	
+	public static HttpResponse createResponse(int code, String connection, File file) {
+		switch (code) {
+		case Protocol.NOT_MODIFIED_CODE:
+			return create304NotModified(connection);
+		case Protocol.NOT_FOUND_CODE:
+			return create404NotFound(connection);
+		case Protocol.BAD_REQUEST_CODE:
+			return create400BadRequest(connection);
+		case Protocol.OK_CODE:
+			return create200OK(file, connection);
+		case Protocol.NOT_SUPPORTED_CODE:
+			return create505NotSupported(connection);
+		case Protocol.METHOD_NOT_ALLOWED_CODE:
+			return create405MethodNotAllowed(connection);
+		case Protocol.CREATED_CODE:
+			return create201Created(file, connection);
+		default:
+			return create500InternalServerError(connection);
+		}
 	}
 }

@@ -43,8 +43,8 @@ import server.Server;
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public class PostRequestHandler implements RequestHandler {
-	/* POST \web\test.txt HTTP/1.1
+public class PutRequestHandler implements RequestHandler {
+	/* PUT \web\test.txt HTTP/1.1
 	   Content-Length: 9
 
        whatisit?
@@ -59,10 +59,16 @@ public class PostRequestHandler implements RequestHandler {
 		String rootDirectory = server.getRootDirectory();
 		String uri = request.getUri();
 		File file = new File(rootDirectory + uri);
-		
-		
+		boolean doesExist=false;
+		if(file.exists()){
+			doesExist=true;
+		}
+		System.out.println(doesExist);
 		try {
-			FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());
+			if(!doesExist){
+				file.createNewFile();
+			}
+			FileOutputStream out = new FileOutputStream(file.getAbsoluteFile(),doesExist);
 			out.write(payload);
 			out.close();
 		} catch (IOException e) {

@@ -46,6 +46,8 @@ public class RequestHandlerFactory {
 		handlers = new HashMap<String, RequestHandler>();
 		handlers.put(Protocol.GET, new GetRequestHandler());
 		handlers.put(Protocol.POST, new PostRequestHandler());
+		handlers.put(Protocol.PUT, new PutRequestHandler());
+		handlers.put(Protocol.DELETE, new DeleteRequestHandler());
 	}
 	
 	public static RequestHandler getRequestHandler(HttpRequest request) throws ProtocolException {

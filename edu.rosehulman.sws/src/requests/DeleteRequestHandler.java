@@ -1,5 +1,5 @@
 /*
- * PostRequestHandler.java
+ * GetRequestHandler.java
  * Apr 23, 2015
  *
  * Simple Web Server (SWS) for EE407/507 and CS455/555
@@ -29,8 +29,6 @@
 package requests;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
@@ -43,34 +41,31 @@ import server.Server;
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public class PostRequestHandler implements RequestHandler {
-	/* POST \web\test.txt HTTP/1.1
-	   Content-Length: 9
+public class DeleteRequestHandler implements RequestHandler {	   
+	/*DELETE \web\put.html HTTP/1.1
 
-       whatisit?
-	
+
 	*/
 	/* (non-Javadoc)
-	 * @see requests.RequestHandler#handle(server.Server, protocol.HttpRequest)
+	 * @see requests.RequestHandler#handle(protocol.HttpRequest)
 	 */
 	@Override
-	public HttpResponse handle(Server server, HttpRequest request)throws ProtocolException {
-		byte[] payload = new String(request.getBody()).getBytes();
-		String rootDirectory = server.getRootDirectory();
+	public HttpResponse handle(Server server, HttpRequest request) throws ProtocolException {
 		String uri = request.getUri();
+		// Get root directory path from server
+		String rootDirectory = server.getRootDirectory();
+		// Combine them together to form absolute file path
 		File file = new File(rootDirectory + uri);
-		
-		
-		try {
-			FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());
-			out.write(payload);
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null);
+		// Check if the file exists
+
+		if(file.exists()){
+			try {
+			    file.delete();
+			} catch (Exception e) {
+				return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null);
+			}
 		}
-		
-		return HttpResponseFactory.createResponse(Protocol.CREATED_CODE, Protocol.CLOSE, new File(uri));
+		return HttpResponseFactory.createResponse(file.exists() ? Protocol.OK_CODE : Protocol.NOT_FOUND_CODE, Protocol.CLOSE, file);
 	}
 
 }

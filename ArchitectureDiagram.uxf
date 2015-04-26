@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="11.5.1">
+<diagram program="umlet" version="12.2">
   <zoom_level>10</zoom_level>
   <element>
     <type>com.umlet.element.Package</type>
@@ -56,7 +56,7 @@ HTTP Request</panel_attributes>
       <w>160</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>Request Handler Factory</panel_attributes>
+    <panel_attributes>Request Handler</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

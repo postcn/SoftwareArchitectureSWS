@@ -138,9 +138,9 @@ Created By</panel_attributes>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>1620</x>
-      <y>220</y>
-      <w>280</w>
-      <h>820</h>
+      <y>170</y>
+      <w>310</w>
+      <h>870</h>
     </coordinates>
     <panel_attributes>Protocol
 --
@@ -159,6 +159,8 @@ Created By</panel_attributes>
 + String OK_TEXT
 + int CREATED_CODE
 + String CREATED_TEXT
++ int ACCEPTED_CODE
++ String ACCEPTED_TEXT
 + int MOVED_PERMANENTLY_CODE
 + String MOVED_PERMANENTLY_TEXT
 + int NOT_SUPPORTED_CODE
@@ -167,6 +169,8 @@ Created By</panel_attributes>
 + String BAD_REQUST_TEXT
 + int NOT_FOUND_CODE
 + String NOT_FOUND_TEXT
++ int GONE_CODE
++ String GONE_TEXT
 + int METHOD_NOT_ALLOWED_CODE
 + String METHOD_NOT_ALLOWED_TEXT
 + int INTERNAL_SERVER_ERROR_CODE

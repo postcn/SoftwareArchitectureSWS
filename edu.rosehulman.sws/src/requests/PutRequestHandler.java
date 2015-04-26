@@ -44,12 +44,6 @@ import server.Server;
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
 public class PutRequestHandler implements RequestHandler {
-	/* PUT \web\test.txt HTTP/1.1
-	   Content-Length: 9
-
-       whatisit?
-	
-	*/
 	/* (non-Javadoc)
 	 * @see requests.RequestHandler#handle(server.Server, protocol.HttpRequest)
 	 */
@@ -63,7 +57,6 @@ public class PutRequestHandler implements RequestHandler {
 		if(file.exists()){
 			doesExist=true;
 		}
-		System.out.println(doesExist);
 		try {
 			if(!doesExist){
 				file.createNewFile();
@@ -76,7 +69,7 @@ public class PutRequestHandler implements RequestHandler {
 			return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null);
 		}
 		
-		return HttpResponseFactory.createResponse(Protocol.CREATED_CODE, Protocol.CLOSE, new File(uri));
+		return HttpResponseFactory.createResponse(doesExist ? Protocol.ACCEPTED_CODE : Protocol.CREATED_CODE, Protocol.CLOSE, new File(uri));
 	}
 
 }

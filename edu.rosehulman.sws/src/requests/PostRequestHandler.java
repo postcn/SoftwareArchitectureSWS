@@ -44,12 +44,6 @@ import server.Server;
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
 public class PostRequestHandler implements RequestHandler {
-	/* POST \web\test.txt HTTP/1.1
-	   Content-Length: 9
-
-       whatisit?
-	
-	*/
 	/* (non-Javadoc)
 	 * @see requests.RequestHandler#handle(server.Server, protocol.HttpRequest)
 	 */

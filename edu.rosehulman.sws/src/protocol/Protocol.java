@@ -50,6 +50,9 @@ public class Protocol {
     public static final int CREATED_CODE = 201;
     public static final String CREATED_TEXT = "Created";
     
+    public static final int ACCEPTED_CODE = 202;
+    public static final String ACCEPTED_TEXT = "Accepted";
+    
     public static final int MOVED_PERMANENTLY_CODE = 301;
     public static final String MOVED_PERMANENTLY_TEXT = "Moved Permanently";
     
@@ -58,6 +61,9 @@ public class Protocol {
     
     public static final int NOT_FOUND_CODE = 404;
     public static final String NOT_FOUND_TEXT = "Not Found";
+    
+    public static final int GONE_CODE = 410;
+    public static final String GONE_TEXT = "GONE";
     
     public static final int METHOD_NOT_ALLOWED_CODE = 405;
     public static final String METHOD_NOT_ALLOWED_TEXT = "Method Not Allowed";

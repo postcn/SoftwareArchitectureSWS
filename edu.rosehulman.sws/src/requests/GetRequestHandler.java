@@ -42,10 +42,6 @@ import server.Server;
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
 public class GetRequestHandler implements RequestHandler {
-	/* GET \web\index.html HTTP/1.1
-	   
-	   
-	 */
 	/* (non-Javadoc)
 	 * @see requests.RequestHandler#handle(protocol.HttpRequest)
 	 */

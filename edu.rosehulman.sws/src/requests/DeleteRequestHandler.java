@@ -42,10 +42,6 @@ import server.Server;
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
 public class DeleteRequestHandler implements RequestHandler {	   
-	/*DELETE \web\put.html HTTP/1.1
-
-
-	*/
 	/* (non-Javadoc)
 	 * @see requests.RequestHandler#handle(protocol.HttpRequest)
 	 */
@@ -61,11 +57,13 @@ public class DeleteRequestHandler implements RequestHandler {
 		if(file.exists()){
 			try {
 			    file.delete();
+			    return HttpResponseFactory.createResponse(Protocol.GONE_CODE, Protocol.CLOSE, file);
 			} catch (Exception e) {
 				return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null);
 			}
+		}else{
+			return HttpResponseFactory.createResponse(Protocol.NOT_FOUND_CODE, Protocol.CLOSE, file);
 		}
-		return HttpResponseFactory.createResponse(file.exists() ? Protocol.OK_CODE : Protocol.NOT_FOUND_CODE, Protocol.CLOSE, file);
 	}
 
 }

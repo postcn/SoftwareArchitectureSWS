@@ -119,6 +119,16 @@ public class HttpResponseFactory {
 		return response;
 	}
 	
+	private static HttpResponse create202Accepted(String connection) {
+		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.ACCEPTED_CODE, 
+				Protocol.ACCEPTED_TEXT, new HashMap<String, String>(), null);
+		
+		// Lets fill up header fields with more information
+		fillGeneralHeader(response, connection);
+		
+		return response;
+	}
+	
 	/**
 	 * Creates a {@link HttpResponse} object for sending bad request response.
 	 * 
@@ -198,6 +208,16 @@ public class HttpResponseFactory {
 		return response;
 	}
 	
+	private static HttpResponse create410Gone(String connection) {
+		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.GONE_CODE, 
+				Protocol.GONE_TEXT, new HashMap<String, String>(), null);
+		
+		// Lets fill up the header fields with more information
+		fillGeneralHeader(response, connection);
+		
+		return response;
+	}
+	
 	public static HttpResponse createResponse(int code, String connection, File file) {
 		switch (code) {
 		case Protocol.NOT_MODIFIED_CODE:
@@ -214,6 +234,10 @@ public class HttpResponseFactory {
 			return create405MethodNotAllowed(connection);
 		case Protocol.CREATED_CODE:
 			return create201Created(file, connection);
+		case Protocol.ACCEPTED_CODE:
+			return create202Accepted(connection);
+		case Protocol.GONE_CODE:
+			return create410Gone(connection);
 		default:
 			return create500InternalServerError(connection);
 		}

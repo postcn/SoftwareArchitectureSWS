@@ -31,9 +31,9 @@ package requests;
 import java.util.HashMap;
 import java.util.Map;
 
-import protocol.HttpRequest;
-import protocol.Protocol;
-import protocol.ProtocolException;
+import export.HttpRequest;
+import export.Protocol;
+import export.ProtocolException;
 
 /**
  * 

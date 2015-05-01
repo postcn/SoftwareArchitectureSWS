@@ -19,7 +19,7 @@
  * 
  */
  
-package protocol;
+package export;
 
 /**
  * This class is a collection of HTTP protocol related constants, 

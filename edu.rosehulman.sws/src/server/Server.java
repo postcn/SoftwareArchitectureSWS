@@ -34,6 +34,8 @@ import java.net.Socket;
  * @author Chandan R. Rupakheti (rupakhet@rose-hulman.edu)
  */
 public class Server implements Runnable {
+	public static final int BUFFER_SIZE = 1048576;
+	
 	private String rootDirectory;
 	private int port;
 	private boolean stop;

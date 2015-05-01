@@ -25,11 +25,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import protocol.HttpRequest;
-import protocol.HttpResponse;
+import export.HttpRequest;
+import export.HttpResponse;
+import export.Protocol;
+import export.ProtocolException;
 import protocol.HttpResponseFactory;
-import protocol.Protocol;
-import protocol.ProtocolException;
 import requests.RequestHandler;
 import requests.RequestHandlerFactory;
 

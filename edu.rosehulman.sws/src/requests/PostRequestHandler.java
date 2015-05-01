@@ -32,11 +32,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import protocol.HttpRequest;
-import protocol.HttpResponse;
+import export.HttpRequest;
+import export.HttpResponse;
+import export.Protocol;
+import export.ProtocolException;
 import protocol.HttpResponseFactory;
-import protocol.Protocol;
-import protocol.ProtocolException;
 import server.Server;
 
 /**
@@ -49,15 +49,18 @@ public class PostRequestHandler implements RequestHandler {
 	 */
 	@Override
 	public HttpResponse handle(Server server, HttpRequest request)throws ProtocolException {
-		byte[] payload = new String(request.getBody()).getBytes();
 		String rootDirectory = server.getRootDirectory();
 		String uri = request.getUri();
 		File file = new File(rootDirectory + uri);
-		
+		char[] buffer = new char[Server.BUFFER_SIZE];
 		
 		try {
 			FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());
-			out.write(payload);
+			while (request.hasBodyData()) {
+				int read = request.read(buffer);
+				out.write((new String(buffer)).getBytes(), 0, read);
+			}
+			
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();

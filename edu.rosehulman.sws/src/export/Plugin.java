@@ -1,6 +1,6 @@
 /*
- * RequestHandler.java
- * Apr 23, 2015
+ * Plugin.java
+ * Apr 30, 2015
  *
  * Simple Web Server (SWS) for EE407/507 and CS455/555
  * 
@@ -26,19 +26,19 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package requests;
+package export;
 
-import export.HttpRequest;
-import export.HttpResponse;
-import export.ProtocolException;
-import server.Server;
+import java.util.List;
 
 /**
  * 
- * @author Caleb Post
+ * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public interface RequestHandler {
+public interface Plugin {
 	
-	HttpResponse handle(Server server, HttpRequest request) throws ProtocolException;
+	public void load();
+	public void shutdown();
+	List<Servlet> getServlets();
+	String getLocation();
 
 }

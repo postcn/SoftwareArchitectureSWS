@@ -32,11 +32,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import protocol.HttpRequest;
-import protocol.HttpResponse;
+import export.HttpRequest;
+import export.HttpResponse;
+import export.Protocol;
+import export.ProtocolException;
 import protocol.HttpResponseFactory;
-import protocol.Protocol;
-import protocol.ProtocolException;
 import server.Server;
 
 /**
@@ -49,10 +49,10 @@ public class PutRequestHandler implements RequestHandler {
 	 */
 	@Override
 	public HttpResponse handle(Server server, HttpRequest request)throws ProtocolException {
-		byte[] payload = new String(request.getBody()).getBytes();
 		String rootDirectory = server.getRootDirectory();
 		String uri = request.getUri();
 		File file = new File(rootDirectory + uri);
+		char[] buffer = new char[100];
 		boolean doesExist=false;
 		if(file.exists()){
 			doesExist=true;
@@ -62,7 +62,10 @@ public class PutRequestHandler implements RequestHandler {
 				file.createNewFile();
 			}
 			FileOutputStream out = new FileOutputStream(file.getAbsoluteFile(),doesExist);
-			out.write(payload);
+			while (request.hasBodyData()) {
+				int read = request.read(buffer);
+				out.write((new String(buffer)).getBytes(), 0, read);
+			}
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();

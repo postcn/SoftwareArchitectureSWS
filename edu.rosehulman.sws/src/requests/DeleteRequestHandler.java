@@ -30,11 +30,11 @@ package requests;
 
 import java.io.File;
 
-import protocol.HttpRequest;
-import protocol.HttpResponse;
+import export.HttpRequest;
+import export.HttpResponse;
+import export.Protocol;
+import export.ProtocolException;
 import protocol.HttpResponseFactory;
-import protocol.Protocol;
-import protocol.ProtocolException;
 import server.Server;
 
 /**

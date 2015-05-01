@@ -28,6 +28,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import export.HttpResponse;
+import export.Protocol;
+
 /**
  * This is a factory to produce various kind of HTTP responses.
  * 

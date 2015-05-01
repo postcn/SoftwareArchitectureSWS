@@ -20,9 +20,10 @@
  */
 
  
-package protocol;
+package export;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
@@ -40,11 +41,12 @@ public class HttpRequest {
 	private String uri;
 	private String version;
 	private Map<String, String> header;
-	private char[] body;
+	private BufferedReader input;
+	private boolean EOS = false;
+	private int remainingData = 0;
 	
 	private HttpRequest() {
 		this.header = new HashMap<String, String>();
-		this.body = new char[0];
 	}
 	
 	/**
@@ -72,10 +74,6 @@ public class HttpRequest {
 	public String getVersion() {
 		return version;
 	}
-	
-	public char[] getBody() {
-		return body;
-	}
 
 	/**
 	 * The key to value mapping in the request header fields.
@@ -90,6 +88,7 @@ public class HttpRequest {
 	/**
 	 * Reads raw data from the supplied input stream and constructs a 
 	 * <tt>HttpRequest</tt> object out of the raw data.
+	 * Does not read the body of the request off of the request.
 	 * 
 	 * @param inputStream The input stream to read from.
 	 * @return A <tt>HttpRequest</tt> object.
@@ -171,13 +170,40 @@ public class HttpRequest {
 		catch(Exception e){}
 		
 		if(contentLength > 0) {
-			request.body = new char[contentLength];
-			reader.read(request.body);
+			request.input = reader;
+			request.EOS = false;
 		}
+		else {
+			request.EOS = true;
+		}
+		
+		request.remainingData = contentLength;
 		
 		return request;
 	}
 	
+	public boolean hasBodyData() throws IOException {
+		return !EOS;
+	}
+	
+	public int read(char[] buffer) throws IOException {
+		if (input != null) {
+			int read;
+			if (buffer.length > remainingData) {
+				read = input.read(buffer, 0, remainingData);
+			}
+			else {
+				read = input.read(buffer);
+			}
+			remainingData -= read;
+			if (read == -1 || remainingData == 0) {
+				EOS = true;
+			}
+			return read;
+		}
+		return -1;
+		
+	}
 	
 	@Override
 	public String toString() {
@@ -197,9 +223,9 @@ public class HttpRequest {
 			buffer.append(entry.getValue());
 			buffer.append(Protocol.LF);
 		}
-		buffer.append("------------- Body ---------------\n");
-		buffer.append(this.body);
-		buffer.append("----------------------------------\n");
+//		buffer.append("------------- Body ---------------\n");
+//		buffer.append(this.body);
+//		buffer.append("----------------------------------\n");
 		return buffer.toString();
 	}
 }

@@ -1,6 +1,6 @@
 /*
- * RequestHandler.java
- * Apr 23, 2015
+ * Servlet.java
+ * Apr 30, 2015
  *
  * Simple Web Server (SWS) for EE407/507 and CS455/555
  * 
@@ -26,19 +26,40 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package requests;
+package export;
 
-import export.HttpRequest;
-import export.HttpResponse;
-import export.ProtocolException;
-import server.Server;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 
- * @author Caleb Post
+ * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public interface RequestHandler {
+public abstract class Servlet {
 	
-	HttpResponse handle(Server server, HttpRequest request) throws ProtocolException;
+	public abstract String getPath();
+	
+	public void handle(HttpRequest request, HttpResponse response) {
+		
+	}
+	
+	/**
+	 * Method which returns the accepted methods for this servlet. The default servlet implementation accepts
+	 * {@link Protocol#GET}, {@link Protocol#PUT}, {@link Protocol#POST}, and {@link Protocol#DELETE}
+	 * 
+	 * To change this behavior override this method and return other values.
+	 * @return the HTTP Methods accepted by this servlet.
+	 */
+	public List<String> getAcceptedMethods() {
+		LinkedList<String> methods = new LinkedList<>();
+		
+		methods.add(Protocol.GET);
+		methods.add(Protocol.PUT);
+		methods.add(Protocol.DELETE);
+		methods.add(Protocol.POST);
+		
+		return methods;
+	}
 
 }

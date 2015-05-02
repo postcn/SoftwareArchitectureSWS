@@ -28,9 +28,11 @@
  
 package protocol;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import requests.RequestHandler;
+import requests.RequestHandlerFactory;
 
 /**
  * 
@@ -38,10 +40,23 @@ import java.util.List;
  */
 public abstract class Servlet {
 	
+	/**
+	 * Gets the routing path for the server. ie. <hostname>/path
+	 * this is the location that the servlet is hosted at.
+	 * @return servlet path location
+	 */
 	public abstract String getPath();
 	
-	public void handle(HttpRequest request, HttpResponse response) {
+	/**
+	 * Root directory for serving files from the servlet.
+	 * @return the root directory
+	 */
+	public abstract String getRootDirectory();
+	
+	public void handle(HttpRequest request, HttpResponse response) throws ProtocolException {
+		RequestHandler handler = RequestHandlerFactory.getRequestHandler(request);
 		
+		handler.handle(this, request, response);
 	}
 	
 	/**

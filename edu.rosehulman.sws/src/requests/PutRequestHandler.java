@@ -31,14 +31,12 @@ package requests;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
-import protocol.HttpResponseFactory;
 import protocol.Protocol;
 import protocol.ProtocolException;
-import server.Server;
+import protocol.Servlet;
 
 /**
  * 
@@ -49,7 +47,7 @@ public class PutRequestHandler implements RequestHandler {
 	 * @see requests.RequestHandler#handle(server.Server, protocol.HttpRequest)
 	 */
 	@Override
-	public HttpResponse handle(Server server, HttpRequest request, OutputStream outStream) throws ProtocolException {
+	public HttpResponse handle(Servlet server, HttpRequest request, HttpResponse toFill) throws ProtocolException {
 		String rootDirectory = server.getRootDirectory();
 		String uri = request.getUri();
 		File file = new File(rootDirectory + uri);
@@ -68,12 +66,14 @@ public class PutRequestHandler implements RequestHandler {
 				out.write((new String(buffer)).getBytes(), 0, read);
 			}
 			out.close();
+			toFill.setStatus(doesExist ? Protocol.ACCEPTED_CODE : Protocol.CREATED_CODE);
+			toFill.setFile(new File(uri));
 		} catch (IOException e) {
 			e.printStackTrace();
-			return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null, outStream);
+			toFill.setStatus(Protocol.INTERNAL_SERVER_ERROR_CODE);
 		}
 		
-		return HttpResponseFactory.createResponse(doesExist ? Protocol.ACCEPTED_CODE : Protocol.CREATED_CODE, Protocol.CLOSE, new File(uri), outStream);
+		return toFill;
 	}
 
 }

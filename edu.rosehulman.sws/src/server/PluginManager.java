@@ -1,6 +1,6 @@
 /*
- * RequestHandler.java
- * Apr 23, 2015
+ * PluginManager.java
+ * May 2, 2015
  *
  * Simple Web Server (SWS) for EE407/507 and CS455/555
  * 
@@ -26,20 +26,31 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package requests;
+package server;
 
+import java.util.HashMap;
+import java.util.Map;
 
-import protocol.HttpRequest;
-import protocol.HttpResponse;
-import protocol.ProtocolException;
 import protocol.Servlet;
 
 /**
  * 
- * @author Caleb Post
+ * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public interface RequestHandler {
+public class PluginManager {
+	//TODO: Implement the rest of the PluginManager
 	
-	HttpResponse handle(Servlet server, HttpRequest request, HttpResponse toFill) throws ProtocolException;
+	@SuppressWarnings("unused")
+	private Map<String, Servlet> locationMapping;
+	private Server parent;
+	
+	public PluginManager(Server parent) {
+		this.locationMapping = new HashMap<String, Servlet>();
+		this.parent = parent;
+	}
+	
+	public Servlet getServletAtLocation(String location) {
+		return new DefaultServlet(parent);
+	}
 
 }

@@ -29,14 +29,12 @@
 package requests;
 
 import java.io.File;
-import java.io.OutputStream;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
-import protocol.HttpResponseFactory;
 import protocol.Protocol;
 import protocol.ProtocolException;
-import server.Server;
+import protocol.Servlet;
 
 /**
  * 
@@ -47,7 +45,7 @@ public class GetRequestHandler implements RequestHandler {
 	 * @see requests.RequestHandler#handle(protocol.HttpRequest)
 	 */
 	@Override
-	public HttpResponse handle(Server server, HttpRequest request, OutputStream outStream) throws ProtocolException {
+	public HttpResponse handle(Servlet server, HttpRequest request, HttpResponse toFill) throws ProtocolException {
 		String uri = request.getUri();
 		// Get root directory path from server
 		String rootDirectory = server.getRootDirectory();
@@ -62,7 +60,11 @@ public class GetRequestHandler implements RequestHandler {
 			}
 		}
 		
-		return HttpResponseFactory.createResponse(file.exists() ? Protocol.OK_CODE : Protocol.NOT_FOUND_CODE, Protocol.CLOSE, file, outStream);
+		toFill.setStatus(file.exists() ? Protocol.OK_CODE : Protocol.NOT_FOUND_CODE);
+		toFill.setConnection(Protocol.CLOSE);
+		toFill.setFile(file);
+		
+		return toFill;
 	}
 
 }

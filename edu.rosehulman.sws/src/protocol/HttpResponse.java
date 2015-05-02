@@ -77,6 +77,19 @@ public class HttpResponse {
 	public int getStatus() {
 		return status;
 	}
+	
+	protected void setStatus(int status, String statusText) {
+		this.status = status;
+		this.phrase = statusText;
+	}
+	
+	public void setStatus(int status) {
+		HttpResponseFactory.fillStatus(status, this);
+	}
+	
+	public void setConnection(String connection) {
+		this.put(Protocol.CONNECTION, connection);
+	}
 
 	/**
 	 * Gets the status phrase of the response object.

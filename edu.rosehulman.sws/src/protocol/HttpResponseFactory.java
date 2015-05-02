@@ -35,6 +35,25 @@ import java.util.HashMap;
  * @author Chandan R. Rupakheti (rupakhet@rose-hulman.edu)
  */
 public class HttpResponseFactory {
+	
+	private static final HashMap<Integer, String> codesMapping;
+	
+	static {
+		codesMapping = new HashMap<Integer, String>();
+		
+		codesMapping.put(Protocol.OK_CODE, Protocol.OK_TEXT);
+		codesMapping.put(Protocol.CREATED_CODE, Protocol.CREATED_TEXT);
+		codesMapping.put(Protocol.ACCEPTED_CODE, Protocol.ACCEPTED_TEXT);
+		codesMapping.put(Protocol.NO_CONTENT_CODE, Protocol.NO_CONTENT_TEXT);
+		codesMapping.put(Protocol.MOVED_PERMANENTLY_CODE, Protocol.MOVED_PERMANENTLY_TEXT);
+		codesMapping.put(Protocol.NOT_SUPPORTED_CODE, Protocol.NOT_SUPPORTED_TEXT);
+		codesMapping.put(Protocol.BAD_REQUEST_CODE, Protocol.BAD_REQUEST_TEXT);
+		codesMapping.put(Protocol.NOT_FOUND_CODE, Protocol.NOT_FOUND_TEXT);
+		codesMapping.put(Protocol.GONE_CODE, Protocol.GONE_TEXT);
+		codesMapping.put(Protocol.METHOD_NOT_ALLOWED_CODE, Protocol.METHOD_NOT_ALLOWED_TEXT);
+		codesMapping.put(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.INTERNAL_SERVER_ERROR_TEXT);
+	}
+	
 	/**
 	 * Convenience method for adding general header to the supplied response object.
 	 * 
@@ -237,5 +256,16 @@ public class HttpResponseFactory {
 		fillGeneralHeader(response, connection);
 		
 		return response;
+	}
+
+	/**
+	 * @param status
+	 * @param httpResponse
+	 */
+	public static void fillStatus(int status, HttpResponse httpResponse) {
+		if (codesMapping.containsKey(status)) {
+			httpResponse.setStatus(status, codesMapping.get(status));
+		}
+		
 	}
 }

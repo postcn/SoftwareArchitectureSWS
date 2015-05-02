@@ -30,8 +30,7 @@ import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
 import protocol.Protocol;
 import protocol.ProtocolException;
-import requests.RequestHandler;
-import requests.RequestHandlerFactory;
+import protocol.Servlet;
 
 /**
  * This class is responsible for handling a incoming request by creating a
@@ -44,10 +43,12 @@ import requests.RequestHandlerFactory;
 public class ConnectionHandler implements Runnable {
 	private Server server;
 	private Socket socket;
+	private PluginManager manager;
 
-	public ConnectionHandler(Server server, Socket socket) {
+	public ConnectionHandler(Server server, Socket socket, PluginManager manager) {
 		this.server = server;
 		this.socket = socket;
+		this.manager = manager;
 	}
 
 	/**
@@ -90,7 +91,8 @@ public class ConnectionHandler implements Runnable {
 		// At this point we have the input and output stream of the socket
 		// Now lets create a HttpRequest object
 		HttpRequest request = null;
-		HttpResponse response = null;
+		HttpResponse response = HttpResponseFactory.createBlankResponse(
+				Protocol.CLOSE, outStream);
 		try {
 			request = HttpRequest.read(inStream);
 			System.out.println(request);
@@ -110,16 +112,34 @@ public class ConnectionHandler implements Runnable {
 		}
 
 		// We reached here means no error so far, so lets process further
-		if (response == null) {
-			try {
-				RequestHandler handler = RequestHandlerFactory
-						.getRequestHandler(request);
-				response = handler.handle(server, request, outStream);
+		if (response.getStatus() == Protocol.MISSING_METHOD_CODE) {
+			// location can either be the first element or the first two
+			// elements when split
+			Servlet handler;
+			String method = request.getMethod();
+			String[] split = request.getUri().split("/");
+			String location = split.length >= 2 ? split[1] : "";
+			String location2 = split.length >= 3 ? location + "/" + request.getUri().split("/")[2] : null;
 
-			} catch (ProtocolException e) {
-				response = HttpResponseFactory.createResponse(e.getStatus(),
+			handler = manager.getServletAtLocation(location);
+			if (location2 != null && handler.getClass() == DefaultServlet.class) {
+				handler = manager.getServletAtLocation(location2);
+			}
+
+			// now we have the servlet that will be handling the data.
+			if (!handler.getAcceptedMethods().contains(method)) {
+				response = HttpResponseFactory.createResponse(
+						Protocol.METHOD_NOT_ALLOWED_CODE, Protocol.CLOSE, null,
+						outStream);
+			}
+
+			try {
+				handler.handle(request, response);
+			} catch (ProtocolException pe) {
+				response = HttpResponseFactory.createResponse(pe.getStatus(),
 						Protocol.CLOSE, null, outStream);
 			}
+
 		}
 
 		try {

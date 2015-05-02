@@ -40,6 +40,7 @@ public class Server implements Runnable {
 	private int port;
 	private boolean stop;
 	private ServerSocket welcomeSocket;
+	private PluginManager pluginManager;
 	
 	private long connections;
 	private long serviceTime;
@@ -56,6 +57,7 @@ public class Server implements Runnable {
 		this.connections = 0;
 		this.serviceTime = 0;
 		this.window = window;
+		this.pluginManager = new PluginManager(this);
 	}
 
 	/**
@@ -131,7 +133,7 @@ public class Server implements Runnable {
 					break;
 				
 				// Create a handler for this incoming connection and start the handler in a new thread
-				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket);
+				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket, pluginManager);
 				new Thread(handler).start();
 			}
 			this.welcomeSocket.close();

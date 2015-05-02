@@ -1,6 +1,6 @@
 /*
- * RequestHandler.java
- * Apr 23, 2015
+ * DefaultServlet.java
+ * May 2, 2015
  *
  * Simple Web Server (SWS) for EE407/507 and CS455/555
  * 
@@ -26,20 +26,36 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package requests;
+package server;
 
-
-import protocol.HttpRequest;
-import protocol.HttpResponse;
-import protocol.ProtocolException;
 import protocol.Servlet;
 
 /**
  * 
- * @author Caleb Post
+ * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public interface RequestHandler {
+public class DefaultServlet extends Servlet {
+	private String path = "";
+	private String root;
 	
-	HttpResponse handle(Servlet server, HttpRequest request, HttpResponse toFill) throws ProtocolException;
+	public DefaultServlet(Server base) {
+		root = base.getRootDirectory();
+	}
+
+	/* (non-Javadoc)
+	 * @see protocol.Servlet#getPath()
+	 */
+	@Override
+	public String getPath() {
+		return path;
+	}
+
+	/* (non-Javadoc)
+	 * @see protocol.Servlet#getRootDirectory()
+	 */
+	@Override
+	public String getRootDirectory() {
+		return root;
+	}
 
 }

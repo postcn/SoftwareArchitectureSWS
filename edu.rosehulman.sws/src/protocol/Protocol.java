@@ -19,7 +19,7 @@
  * 
  */
  
-package export;
+package protocol;
 
 /**
  * This class is a collection of HTTP protocol related constants, 
@@ -43,6 +43,9 @@ public class Protocol {
     public static final String PUT = "PUT";
     public static final String DELETE = "DELETE";
     
+    public static final int MISSING_METHOD_CODE = -1;
+    public static final String MISSING_METHOD_TEXT = "Missing Method. Improper HTTPResponse";
+    
     // Some useful http codes and text
     public static final int OK_CODE = 200;
     public static final String OK_TEXT = "OK";
@@ -52,6 +55,9 @@ public class Protocol {
     
     public static final int ACCEPTED_CODE = 202;
     public static final String ACCEPTED_TEXT = "Accepted";
+    
+    public static final int NO_CONTENT_CODE = 204;
+    public static final String NO_CONTENT_TEXT = "No Content";
     
     public static final int MOVED_PERMANENTLY_CODE = 301;
     public static final String MOVED_PERMANENTLY_TEXT = "Moved Permanently";

@@ -20,7 +20,7 @@
  */
 
  
-package export;
+package protocol;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -182,11 +182,11 @@ public class HttpRequest {
 		return request;
 	}
 	
-	public boolean hasBodyData() throws IOException {
+	public boolean hasBodyData() {
 		return !EOS;
 	}
 	
-	public int read(char[] buffer) throws IOException {
+	public int readBody(char[] buffer) throws IOException {
 		if (input != null) {
 			int read;
 			if (buffer.length > remainingData) {

@@ -31,12 +31,13 @@ package requests;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
-import export.HttpRequest;
-import export.HttpResponse;
-import export.Protocol;
-import export.ProtocolException;
+import protocol.HttpRequest;
+import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
+import protocol.Protocol;
+import protocol.ProtocolException;
 import server.Server;
 
 /**
@@ -48,7 +49,7 @@ public class PostRequestHandler implements RequestHandler {
 	 * @see requests.RequestHandler#handle(server.Server, protocol.HttpRequest)
 	 */
 	@Override
-	public HttpResponse handle(Server server, HttpRequest request)throws ProtocolException {
+	public HttpResponse handle(Server server, HttpRequest request, OutputStream outStream) throws ProtocolException {
 		String rootDirectory = server.getRootDirectory();
 		String uri = request.getUri();
 		File file = new File(rootDirectory + uri);
@@ -57,17 +58,17 @@ public class PostRequestHandler implements RequestHandler {
 		try {
 			FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());
 			while (request.hasBodyData()) {
-				int read = request.read(buffer);
+				int read = request.readBody(buffer);
 				out.write((new String(buffer)).getBytes(), 0, read);
 			}
 			
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null);
+			return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null, outStream);
 		}
 		
-		return HttpResponseFactory.createResponse(Protocol.CREATED_CODE, Protocol.CLOSE, new File(uri));
+		return HttpResponseFactory.createResponse(Protocol.CREATED_CODE, Protocol.CLOSE, new File(uri), outStream);
 	}
 
 }

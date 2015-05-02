@@ -29,12 +29,13 @@
 package requests;
 
 import java.io.File;
+import java.io.OutputStream;
 
-import export.HttpRequest;
-import export.HttpResponse;
-import export.Protocol;
-import export.ProtocolException;
+import protocol.HttpRequest;
+import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
+import protocol.Protocol;
+import protocol.ProtocolException;
 import server.Server;
 
 /**
@@ -46,7 +47,7 @@ public class DeleteRequestHandler implements RequestHandler {
 	 * @see requests.RequestHandler#handle(protocol.HttpRequest)
 	 */
 	@Override
-	public HttpResponse handle(Server server, HttpRequest request) throws ProtocolException {
+	public HttpResponse handle(Server server, HttpRequest request, OutputStream outStream) throws ProtocolException {
 		String uri = request.getUri();
 		// Get root directory path from server
 		String rootDirectory = server.getRootDirectory();
@@ -57,12 +58,12 @@ public class DeleteRequestHandler implements RequestHandler {
 		if(file.exists()){
 			try {
 			    file.delete();
-			    return HttpResponseFactory.createResponse(Protocol.GONE_CODE, Protocol.CLOSE, file);
+			    return HttpResponseFactory.createResponse(Protocol.NO_CONTENT_CODE, Protocol.CLOSE, file, outStream);
 			} catch (Exception e) {
-				return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null);
+				return HttpResponseFactory.createResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.CLOSE, null, outStream);
 			}
 		}else{
-			return HttpResponseFactory.createResponse(Protocol.NOT_FOUND_CODE, Protocol.CLOSE, file);
+			return HttpResponseFactory.createResponse(Protocol.NOT_FOUND_CODE, Protocol.CLOSE, file, outStream);
 		}
 	}
 

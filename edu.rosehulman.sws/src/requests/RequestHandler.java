@@ -28,9 +28,11 @@
  
 package requests;
 
-import export.HttpRequest;
-import export.HttpResponse;
-import export.ProtocolException;
+import java.io.OutputStream;
+
+import protocol.HttpRequest;
+import protocol.HttpResponse;
+import protocol.ProtocolException;
 import server.Server;
 
 /**
@@ -39,6 +41,6 @@ import server.Server;
  */
 public interface RequestHandler {
 	
-	HttpResponse handle(Server server, HttpRequest request) throws ProtocolException;
+	HttpResponse handle(Server server, HttpRequest request, OutputStream outStream) throws ProtocolException;
 
 }

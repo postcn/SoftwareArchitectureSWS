@@ -19,7 +19,7 @@
  * 
  */
  
-package export;
+package protocol;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -40,6 +40,7 @@ public class HttpResponse {
 	private String phrase;
 	private Map<String, String> header;
 	private File file;
+	private OutputStream outStream;
 
 	
 	/**
@@ -51,12 +52,13 @@ public class HttpResponse {
 	 * @param header The header field map.
 	 * @param file The file to be sent.
 	 */
-	public HttpResponse(String version, int status, String phrase, Map<String, String> header, File file) {
+	protected HttpResponse(String version, int status, String phrase, Map<String, String> header, File file, OutputStream outStream) {
 		this.version = version;
 		this.status = status;
 		this.phrase = phrase;
 		this.header = header;
 		this.file = file;
+		this.outStream = outStream;
 	}
 
 	/**
@@ -113,12 +115,20 @@ public class HttpResponse {
 	}
 	
 	/**
+	 * Sets the file to be written in this response to the specified.
+	 * @param file the file whose body will be written to the response stream
+	 */
+	public void setFile(File file) {
+		this.file = file;
+	}
+	
+	/**
 	 * Writes the data of the http response object to the output stream.
 	 * 
 	 * @param outStream The output stream
 	 * @throws Exception
 	 */
-	public void write(OutputStream outStream) throws Exception {
+	public void write() throws Exception {
 		BufferedOutputStream out = new BufferedOutputStream(outStream, Protocol.CHUNK_LENGTH);
 
 		// First status line

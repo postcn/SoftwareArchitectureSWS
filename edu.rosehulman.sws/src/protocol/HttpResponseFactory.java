@@ -22,14 +22,12 @@
 package protocol;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-
-import export.HttpResponse;
-import export.Protocol;
 
 /**
  * This is a factory to produce various kind of HTTP responses.
@@ -66,11 +64,9 @@ public class HttpResponseFactory {
 	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
 	 * @return A {@link HttpResponse} object represent 200 status.
 	 */
-	private static HttpResponse create200OK(File file, String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.OK_CODE, 
-				Protocol.OK_TEXT, new HashMap<String, String>(), file);
-		
-		// Lets fill up header fields with more information
+	private static HttpResponse create200OK(File file, String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.OK_CODE, Protocol.OK_TEXT, stream);
+		response.setFile(file);
 		fillGeneralHeader(response, connection);
 		
 		// Lets add last modified date for the file
@@ -97,11 +93,8 @@ public class HttpResponseFactory {
 		return response;
 	}
 	
-	private static HttpResponse create201Created(File newFile, String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.CREATED_CODE, 
-				Protocol.CREATED_TEXT, new HashMap<String, String>(), null);
-		
-		// Lets fill up header fields with more information
+	private static HttpResponse create201Created(File newFile, String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.CREATED_CODE, Protocol.CREATED_TEXT, stream);
 		fillGeneralHeader(response, connection);
 		
 		// Lets add last modified date for the file
@@ -122,59 +115,15 @@ public class HttpResponseFactory {
 		return response;
 	}
 	
-	private static HttpResponse create202Accepted(String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.ACCEPTED_CODE, 
-				Protocol.ACCEPTED_TEXT, new HashMap<String, String>(), null);
-		
-		// Lets fill up header fields with more information
+	private static HttpResponse create202Accepted(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.ACCEPTED_CODE, Protocol.ACCEPTED_TEXT, stream);
 		fillGeneralHeader(response, connection);
 		
 		return response;
 	}
 	
-	/**
-	 * Creates a {@link HttpResponse} object for sending bad request response.
-	 * 
-	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
-	 * @return A {@link HttpResponse} object represent 400 status.
-	 */
-	private static HttpResponse create400BadRequest(String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.BAD_REQUEST_CODE, 
-				Protocol.BAD_REQUEST_TEXT, new HashMap<String, String>(), null);
-		
-		// Lets fill up header fields with more information
-		fillGeneralHeader(response, connection);
-		
-		return response;
-	}
-	
-	/**
-	 * Creates a {@link HttpResponse} object for sending not found response.
-	 * 
-	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
-	 * @return A {@link HttpResponse} object represent 404 status.
-	 */
-	private static HttpResponse create404NotFound(String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.NOT_FOUND_CODE, 
-				Protocol.NOT_FOUND_TEXT, new HashMap<String, String>(), null);
-		
-		// Lets fill up the header fields with more information
-		fillGeneralHeader(response, connection);
-		
-		return response;	
-	}
-	
-	/**
-	 * Creates a {@link HttpResponse} object for sending version not supported response.
-	 * 
-	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
-	 * @return A {@link HttpResponse} object represent 505 status.
-	 */
-	private static HttpResponse create505NotSupported(String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.NOT_SUPPORTED_CODE, 
-				Protocol.NOT_SUPPORTED_TEXT, new HashMap<String, String>(), null);
-		
-		// Lets fill up the header fields with more information
+	private static HttpResponse create204NoContent(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.NO_CONTENT_CODE, Protocol.NO_CONTENT_TEXT, stream);
 		fillGeneralHeader(response, connection);
 		
 		return response;
@@ -186,63 +135,107 @@ public class HttpResponseFactory {
 	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
 	 * @return A {@link HttpResponse} object represent 304 status.
 	 */
-	private static HttpResponse create304NotModified(String connection) {
+	private static HttpResponse create304NotModified(String connection, OutputStream stream) {
 		// TODO fill in this method
 		return null;
 	}
 	
-	private static HttpResponse create500InternalServerError(String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.INTERNAL_SERVER_ERROR_CODE, 
-				Protocol.INTERNAL_SERVER_ERROR_TEXT, new HashMap<String, String>(), null);
-		
-		// Lets fill up the header fields with more information
+	/**
+	 * Creates a {@link HttpResponse} object for sending bad request response.
+	 * 
+	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
+	 * @return A {@link HttpResponse} object represent 400 status.
+	 */
+	private static HttpResponse create400BadRequest(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.BAD_REQUEST_CODE, Protocol.BAD_REQUEST_TEXT, stream);
 		fillGeneralHeader(response, connection);
 		
 		return response;
 	}
 	
-	private static HttpResponse create405MethodNotAllowed(String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.METHOD_NOT_ALLOWED_CODE, 
-				Protocol.METHOD_NOT_ALLOWED_TEXT, new HashMap<String, String>(), null);
+	/**
+	 * Creates a {@link HttpResponse} object for sending not found response.
+	 * 
+	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
+	 * @return A {@link HttpResponse} object represent 404 status.
+	 */
+	private static HttpResponse create404NotFound(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.NOT_FOUND_CODE, Protocol.NOT_FOUND_TEXT, stream);
+		fillGeneralHeader(response, connection);
 		
-		// Lets fill up the header fields with more information
+		return response;	
+	}
+	
+	private static HttpResponse create405MethodNotAllowed(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.METHOD_NOT_ALLOWED_CODE, Protocol.METHOD_NOT_ALLOWED_TEXT, stream);
 		fillGeneralHeader(response, connection);
 		
 		return response;
 	}
 	
-	private static HttpResponse create410Gone(String connection) {
-		HttpResponse response = new HttpResponse(Protocol.VERSION, Protocol.GONE_CODE, 
-				Protocol.GONE_TEXT, new HashMap<String, String>(), null);
-		
-		// Lets fill up the header fields with more information
+	private static HttpResponse create410Gone(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.GONE_CODE, Protocol.GONE_TEXT, stream);
 		fillGeneralHeader(response, connection);
 		
 		return response;
 	}
 	
-	public static HttpResponse createResponse(int code, String connection, File file) {
+	private static HttpResponse create500InternalServerError(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.INTERNAL_SERVER_ERROR_CODE, Protocol.INTERNAL_SERVER_ERROR_TEXT, stream);
+		fillGeneralHeader(response, connection);
+		
+		return response;
+	}
+	
+	/**
+	 * Creates a {@link HttpResponse} object for sending version not supported response.
+	 * 
+	 * @param connection Supported values are {@link Protocol#OPEN} and {@link Protocol#CLOSE}.
+	 * @return A {@link HttpResponse} object represent 505 status.
+	 */
+	private static HttpResponse create505NotSupported(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.NOT_SUPPORTED_CODE, Protocol.NOT_SUPPORTED_TEXT, stream);
+		fillGeneralHeader(response, connection);
+		
+		return response;
+	}
+	
+	private static HttpResponse getResponse(int code, String text, OutputStream stream) {
+		return new HttpResponse(Protocol.VERSION, code, text, new HashMap<String, String>(), null, stream);
+	}
+	
+	public static HttpResponse createResponse(int code, String connection, File file, OutputStream stream) {
 		switch (code) {
 		case Protocol.NOT_MODIFIED_CODE:
-			return create304NotModified(connection);
+			return create304NotModified(connection, stream);
 		case Protocol.NOT_FOUND_CODE:
-			return create404NotFound(connection);
+			return create404NotFound(connection, stream);
 		case Protocol.BAD_REQUEST_CODE:
-			return create400BadRequest(connection);
+			return create400BadRequest(connection, stream);
 		case Protocol.OK_CODE:
-			return create200OK(file, connection);
+			return create200OK(file, connection, stream);
 		case Protocol.NOT_SUPPORTED_CODE:
-			return create505NotSupported(connection);
+			return create505NotSupported(connection, stream);
 		case Protocol.METHOD_NOT_ALLOWED_CODE:
-			return create405MethodNotAllowed(connection);
+			return create405MethodNotAllowed(connection, stream);
 		case Protocol.CREATED_CODE:
-			return create201Created(file, connection);
+			return create201Created(file, connection, stream);
 		case Protocol.ACCEPTED_CODE:
-			return create202Accepted(connection);
+			return create202Accepted(connection, stream);
 		case Protocol.GONE_CODE:
-			return create410Gone(connection);
+			return create410Gone(connection, stream);
+		case Protocol.NO_CONTENT_CODE:
+			return create204NoContent(connection, stream);
 		default:
-			return create500InternalServerError(connection);
+			return create500InternalServerError(connection, stream);
 		}
+	}
+	
+	public static HttpResponse createBlankResponse(String connection, OutputStream stream) {
+		HttpResponse response = getResponse(Protocol.MISSING_METHOD_CODE, Protocol.MISSING_METHOD_TEXT, stream);
+		
+		fillGeneralHeader(response, connection);
+		
+		return response;
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Plugin.java
+ * Servlet.java
  * Apr 30, 2015
  *
  * Simple Web Server (SWS) for EE407/507 and CS455/555
@@ -26,19 +26,40 @@
  * http://clarkson.edu/~rupakhcr
  */
  
-package export;
+package protocol;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
-public interface Plugin {
+public abstract class Servlet {
 	
-	public void load();
-	public void shutdown();
-	List<Servlet> getServlets();
-	String getLocation();
+	public abstract String getPath();
+	
+	public void handle(HttpRequest request, HttpResponse response) {
+		
+	}
+	
+	/**
+	 * Method which returns the accepted methods for this servlet. The default servlet implementation accepts
+	 * {@link Protocol#GET}, {@link Protocol#PUT}, {@link Protocol#POST}, and {@link Protocol#DELETE}
+	 * 
+	 * To change this behavior override this method and return other values.
+	 * @return the HTTP Methods accepted by this servlet.
+	 */
+	public List<String> getAcceptedMethods() {
+		LinkedList<String> methods = new LinkedList<>();
+		
+		methods.add(Protocol.GET);
+		methods.add(Protocol.PUT);
+		methods.add(Protocol.DELETE);
+		methods.add(Protocol.POST);
+		
+		return methods;
+	}
 
 }

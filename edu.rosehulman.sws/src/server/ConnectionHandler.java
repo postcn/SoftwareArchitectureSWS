@@ -25,11 +25,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import export.HttpRequest;
-import export.HttpResponse;
-import export.Protocol;
-import export.ProtocolException;
+import protocol.HttpRequest;
+import protocol.HttpResponse;
 import protocol.HttpResponseFactory;
+import protocol.Protocol;
+import protocol.ProtocolException;
 import requests.RequestHandler;
 import requests.RequestHandlerFactory;
 
@@ -101,12 +101,12 @@ public class ConnectionHandler implements Runnable {
 			// fromInputStream
 			// Protocol.BAD_REQUEST_CODE and Protocol.NOT_SUPPORTED_CODE
 			response = HttpResponseFactory.createResponse(pe.getStatus(),
-					Protocol.CLOSE, null);
+					Protocol.CLOSE, null, outStream);
 		} catch (Exception e) {
 			e.printStackTrace();
 			// For any other error, we will create bad request response as well
 			response = HttpResponseFactory.createResponse(
-					Protocol.BAD_REQUEST_CODE, Protocol.CLOSE, null);
+					Protocol.BAD_REQUEST_CODE, Protocol.CLOSE, null, outStream);
 		}
 
 		// We reached here means no error so far, so lets process further
@@ -114,17 +114,17 @@ public class ConnectionHandler implements Runnable {
 			try {
 				RequestHandler handler = RequestHandlerFactory
 						.getRequestHandler(request);
-				response = handler.handle(server, request);
+				response = handler.handle(server, request, outStream);
 
 			} catch (ProtocolException e) {
 				response = HttpResponseFactory.createResponse(e.getStatus(),
-						Protocol.CLOSE, null);
+						Protocol.CLOSE, null, outStream);
 			}
 		}
 
 		try {
 			// Write response and we are all done so close the socket
-			response.write(outStream);
+			response.write();
 			// System.out.println(response);
 			socket.close();
 		} catch (Exception e) {

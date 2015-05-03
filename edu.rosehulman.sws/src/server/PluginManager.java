@@ -58,16 +58,19 @@ public class PluginManager implements Runnable{
 	//TODO: Implement the rest of the PluginManager
 	
 	private Map<String, Servlet> locationMapping;
+	private Map<String,Plugin> pluginMapping;
 	private Server parent;
-	final File PLUGIN_FILE = new File("Plugins"); //This is the directory Location that we are using.
+	final File PLUGIN_FOLDER = new File("Plugins"); //This is the directory Location that we are using.
 	private WatchService watcher;
 	private Path dir;
+	private enum Action{CREATE,MODIFY,DELETE;}
 	
 	public PluginManager(Server parent) {
-		this.locationMapping = new HashMap<String, Servlet>();
+		this.locationMapping = new HashMap<>();
+		this.pluginMapping = new HashMap<>();
 		this.parent = parent;
-		if (!PLUGIN_FILE.exists()) {
-			PLUGIN_FILE.mkdir();
+		if (!PLUGIN_FOLDER.exists()) {
+			PLUGIN_FOLDER.mkdir();
 		}
 		
 		loadPlugins();
@@ -94,38 +97,49 @@ public class PluginManager implements Runnable{
 		}
 		locationMapping.put(location, servlet);
 		System.out.println(location);
-//		System.out.println(PLUGIN_FILE.getAbsolutePath()+File.separator+servletPath);
 	}
 	
-	//unload plugin. shutdown plugin then unload indiv servlets and remove from locaiton mapping
-	public void unload(Servlet servlet){
-		return;//TODO: implement this method
+	public void unload(Servlet servlet,String pluginPath){
+		String location = pluginPath+"//"+servlet.getPath();
+		if(locationMapping.containsKey(location)){
+			locationMapping.remove(location);
+		}
 	}
-//	TODO: implement a watcher for deleted files
 	
-	private void loadPlugin(Plugin plugin){
+	private void loadPlugin(Plugin plugin, String fileName){
 		plugin.load();
 		List<Servlet> servlets = plugin.getServlets();
 		for(int i=0;i<servlets.size();i++){
 			load(servlets.get(i), plugin.getLocation());
 		}
+		pluginMapping.put(fileName+plugin.getLocation(),plugin);
+	}
+	
+	private void unloadPlugin(String pluginLocation,String fileName){
+		Plugin plugin = pluginMapping.get(fileName+pluginLocation);
+		pluginMapping.remove(fileName+pluginLocation);
+		plugin.shutdown();
+		List<Servlet> servlets = plugin.getServlets();
+		for(int i=0;i<servlets.size();i++){
+			unload(servlets.get(i),plugin.getLocation());
+		}
 	}
 
 	private void registerWatcher() throws IOException{
-		this.dir = PLUGIN_FILE.toPath();
+		this.dir = PLUGIN_FOLDER.toPath();
 		this.watcher = FileSystems.getDefault().newWatchService();
-		this.dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE);
+		this.dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_MODIFY,StandardWatchEventKinds.ENTRY_DELETE);
 	}
 	
 	private void loadPlugins() {
-		File[] files = PLUGIN_FILE.listFiles();
+		File[] files = PLUGIN_FOLDER.listFiles();
 		if (files == null) {
 			// "Critical Error: Plugins directory is missing from current folder"
 			return;
 		}
 		for (int i = 0; i < files.length; i++) {
 			try {
-				loadAndScanJar(files[i]);
+				loadAndScanJar(files[i],Action.CREATE);
 			} catch (ClassNotFoundException | IOException e) {
 				// "Error occurred while processing file: " + files[i].getName()));
 				// "An Error Occurred while loading a possible jar file: " + e.getLocalizedMessage()
@@ -134,8 +148,7 @@ public class PluginManager implements Runnable{
 
 	}
 
-	private void loadAndScanJar(File file) throws ClassNotFoundException, ZipException, IOException {
-		System.out.println(file.getName());
+	private void loadAndScanJar(File file,Action action) throws ClassNotFoundException, ZipException, IOException {
 		LinkedList<Class<?>> pluginClasses = new LinkedList<>();
 		JarFile jarFile = new JarFile(file);
 		Enumeration<?> jarEntries = jarFile.entries();
@@ -159,8 +172,22 @@ public class PluginManager implements Runnable{
 		}
 		for (Class<?> c : pluginClasses) {
 			try {
+				Plugin plugin = (Plugin) c.newInstance();
+				System.out.println(action);
+				switch(action){
+					case CREATE:
+						loadPlugin(plugin,file.getAbsolutePath());
+						break;
+					case MODIFY:
+						unloadPlugin(plugin.getLocation(),file.getAbsolutePath());
+						loadPlugin(plugin,file.getAbsolutePath());
+						break;
+					case DELETE:
+						unloadPlugin(plugin.getLocation(),file.getAbsolutePath());
+						break;
+				}
 //				handler.register((Plugin) c.newInstance());//handler is the pluginhandler. It is a function registration call
-				loadPlugin((Plugin) c.newInstance());
+//				loadPlugin((Plugin) c.newInstance());
 			} catch (InstantiationException e1) {
 				e1.printStackTrace();
 			} catch (IllegalAccessException e1) {
@@ -183,29 +210,36 @@ public class PluginManager implements Runnable{
 		    for (WatchEvent<?> event: key.pollEvents()) {
 		        WatchEvent.Kind<?> kind = event.kind();
 	
-		        // This key is registered only for ENTRY_CREATE events, but an OVERFLOW event can occur regardless if events are lost or discarded.
 		        if (kind == StandardWatchEventKinds.OVERFLOW) {
-		            continue;
-		        }
-	
-		        // The filename is the context of the event.
-		        @SuppressWarnings("unchecked")
-				WatchEvent<Path> ev = (WatchEvent<Path>)event;
-		        Path filename = ev.context();
-	
-		        Path child = dir.resolve(filename);
-				if (child.getFileName().toString().endsWith(".jar")) {
-					// "Dynamically adding jar file added after initial startup"
-					try {						
-						loadAndScanJar(child.toFile());
-						
-					} catch (ClassNotFoundException | IOException e) {
-						e.printStackTrace();
-					}
-				}else{
-					//"New File: ("+filename+") is not a jar file"
-				    continue;
-				}
+		            System.out.println("got an overflow event");
+		        	continue;
+		        }else{
+		        	// The filename is the context of the event.
+			        @SuppressWarnings("unchecked")
+					WatchEvent<Path> ev = (WatchEvent<Path>)event;
+			        Path filename = ev.context();
+		
+			        Path child = dir.resolve(filename);
+			        if (child.getFileName().toString().endsWith(".jar")) {
+			        	Action action = null; 
+			        	if(kind==StandardWatchEventKinds.ENTRY_CREATE){		        		
+				        	System.out.println("got a create event: "+child);
+				        	action=Action.CREATE;
+				        }else if(kind==StandardWatchEventKinds.ENTRY_MODIFY){
+				        	System.out.println("got a modify event: "+child);
+				        	action=Action.MODIFY;
+				        }else if(kind==StandardWatchEventKinds.ENTRY_DELETE){
+				        	System.out.println("got a delete event: "+child);
+				        	action=Action.DELETE;
+				        }
+//			        	System.out.println(action);
+			        	try {						
+							loadAndScanJar(child.toFile(),action);//TODO: hopefully its something
+						} catch (ClassNotFoundException | IOException e) {
+							e.printStackTrace();
+						}
+			        }
+			    }
 		    }
 	
 		    // Reset the key -- this step is critical if you want to receive further watch events.  If the key is no longer valid,

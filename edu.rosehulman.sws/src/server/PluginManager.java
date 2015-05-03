@@ -127,7 +127,7 @@ public class PluginManager implements Runnable{
 	private void registerWatcher() throws IOException{
 		this.dir = PLUGIN_FOLDER.toPath();
 		this.watcher = FileSystems.getDefault().newWatchService();
-		this.dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_MODIFY,StandardWatchEventKinds.ENTRY_DELETE);
+		this.dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_MODIFY);
 	}
 	
 	private void loadPlugins() {

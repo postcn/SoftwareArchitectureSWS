@@ -58,6 +58,8 @@ public class Server implements Runnable {
 		this.serviceTime = 0;
 		this.window = window;
 		this.pluginManager = new PluginManager(this);
+	    Thread t = new Thread(this.pluginManager);
+	    t.start();
 	}
 
 	/**

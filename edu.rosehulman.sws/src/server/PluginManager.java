@@ -79,18 +79,21 @@ public class PluginManager implements Runnable{
 	}
 	
 	public Servlet getServletAtLocation(String location) {
+		System.out.println(location);
 		if(locationMapping.containsKey(location)){
 			return locationMapping.get(location);
 		}
 		return new DefaultServlet(parent);
 	}
 
-	public void load(Servlet servlet){
+	public void load(Servlet servlet, String pluginPath){
 		String servletPath = servlet.getPath();
+		String location = pluginPath+"/"+servletPath;
 		if(locationMapping.containsKey(servletPath)){
 			locationMapping.remove(servletPath);
 		}
-		locationMapping.put(PLUGIN_FILE.getAbsolutePath()+File.separator+servletPath, servlet);
+		locationMapping.put(location, servlet);
+		System.out.println(location);
 //		System.out.println(PLUGIN_FILE.getAbsolutePath()+File.separator+servletPath);
 	}
 	
@@ -104,7 +107,7 @@ public class PluginManager implements Runnable{
 		plugin.load();
 		List<Servlet> servlets = plugin.getServlets();
 		for(int i=0;i<servlets.size();i++){
-			load(servlets.get(i));
+			load(servlets.get(i), plugin.getLocation());
 		}
 	}
 
@@ -132,6 +135,7 @@ public class PluginManager implements Runnable{
 	}
 
 	private void loadAndScanJar(File file) throws ClassNotFoundException, ZipException, IOException {
+		System.out.println(file.getName());
 		LinkedList<Class<?>> pluginClasses = new LinkedList<>();
 		JarFile jarFile = new JarFile(file);
 		Enumeration<?> jarEntries = jarFile.entries();

@@ -183,8 +183,8 @@ public class HttpResponse {
 		out.flush();
 	}
 	
-	public OutputStream getOutputStream() {
-		return this.outStream;
+	public BufferedOutputStream getOutputStream() {
+		return new BufferedOutputStream(this.outStream);
 	}
 	
 	@Override

@@ -55,7 +55,6 @@ import protocol.Servlet;
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
 public class PluginManager implements Runnable{
-	//TODO: Implement the rest of the PluginManager
 	
 	private Map<String, Servlet> locationMapping;
 	private Map<String,Plugin> pluginMapping;
@@ -63,7 +62,7 @@ public class PluginManager implements Runnable{
 	final File PLUGIN_FOLDER = new File("Plugins"); //This is the directory Location that we are using.
 	private WatchService watcher;
 	private Path dir;
-	private enum Action{CREATE,MODIFY,DELETE;}
+	private enum Action{CREATE,MODIFY}
 	
 	public PluginManager(Server parent) {
 		this.locationMapping = new HashMap<>();
@@ -128,7 +127,7 @@ public class PluginManager implements Runnable{
 	private void registerWatcher() throws IOException{
 		this.dir = PLUGIN_FOLDER.toPath();
 		this.watcher = FileSystems.getDefault().newWatchService();
-		this.dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_MODIFY,StandardWatchEventKinds.ENTRY_DELETE);
+		this.dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_MODIFY);
 	}
 	
 	private void loadPlugins() {
@@ -182,12 +181,7 @@ public class PluginManager implements Runnable{
 						unloadPlugin(plugin.getLocation(),file.getAbsolutePath());
 						loadPlugin(plugin,file.getAbsolutePath());
 						break;
-					case DELETE:
-						unloadPlugin(plugin.getLocation(),file.getAbsolutePath());
-						break;
 				}
-//				handler.register((Plugin) c.newInstance());//handler is the pluginhandler. It is a function registration call
-//				loadPlugin((Plugin) c.newInstance());
 			} catch (InstantiationException e1) {
 				e1.printStackTrace();
 			} catch (IllegalAccessException e1) {
@@ -228,11 +222,7 @@ public class PluginManager implements Runnable{
 				        }else if(kind==StandardWatchEventKinds.ENTRY_MODIFY){
 				        	System.out.println("got a modify event: "+child);
 				        	action=Action.MODIFY;
-				        }else if(kind==StandardWatchEventKinds.ENTRY_DELETE){
-				        	System.out.println("got a delete event: "+child);
-				        	action=Action.DELETE;
 				        }
-//			        	System.out.println(action);
 			        	try {						
 							loadAndScanJar(child.toFile(),action);//TODO: hopefully its something
 						} catch (ClassNotFoundException | IOException e) {

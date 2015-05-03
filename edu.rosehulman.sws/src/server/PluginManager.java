@@ -111,7 +111,7 @@ public class PluginManager implements Runnable{
 		for(int i=0;i<servlets.size();i++){
 			load(servlets.get(i), plugin.getLocation());
 		}
-		pluginMapping.put(fileName+plugin.getLocation(),plugin);
+//		pluginMapping.put(fileName+plugin.getLocation(),plugin);
 	}
 	
 //	private void unloadPlugin(String pluginLocation,String fileName){

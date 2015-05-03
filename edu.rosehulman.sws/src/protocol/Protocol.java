@@ -85,16 +85,16 @@ public class Protocol {
 
     // Some useful header elements in request
     public static final String HOST = "Host";
-    public static final String CONNECTION = "Connection";
-    public static final String USER_AGENT = "User-Agent";
+    public static final String CONNECTION = "connection";
+    public static final String USER_AGENT = "user-agent";
 
     // Some useful header elements in response
-    public static final String DATE = "Date";
-    public static final String Server = "Server";
-    public static final String LAST_MODIFIED = "Last-Modified";
-    public static final String CONTENT_LENGTH = "Content-Length";
-    public static final String CONTENT_TYPE = "Content-Type";
-    public static final String LOCATION = "Location";
+    public static final String DATE = "date";
+    public static final String Server = "server";
+    public static final String LAST_MODIFIED = "last-modified";
+    public static final String CONTENT_LENGTH = "content-length";
+    public static final String CONTENT_TYPE = "content-type";
+    public static final String LOCATION = "location";
     
     /**
      * A chunk size to be used when reading a file and sending it to a socket. 

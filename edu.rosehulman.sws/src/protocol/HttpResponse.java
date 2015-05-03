@@ -183,6 +183,10 @@ public class HttpResponse {
 		out.flush();
 	}
 	
+	public OutputStream getOutputStream() {
+		return this.outStream;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();

@@ -33,12 +33,16 @@ import java.util.List;
 
 import requests.RequestHandler;
 import requests.RequestHandlerFactory;
+import server.Server;
 
 /**
  * 
  * @author Chandan R. Rupakheti (rupakhcr@clarkson.edu)
  */
 public abstract class Servlet {
+	
+	Server running;
+	Plugin container;
 	
 	/**
 	 * Gets the routing path for the server. ie. <hostname>/path
@@ -51,7 +55,19 @@ public abstract class Servlet {
 	 * Root directory for serving files from the servlet.
 	 * @return the root directory
 	 */
-	public abstract String getRootDirectory();
+	public String getRootDirectory() {
+		String serverRoot = running.getRootDirectory();
+		String pluginRoot = container == null ? "" : container.getLocation() + "/";
+		return serverRoot + "/" + pluginRoot+getPath();
+	}
+	
+	protected void setServer(Server running) {
+		this.running = running;
+	}
+	
+	public void setPlugin(Plugin container) {
+		this.container = container;
+	}
 	
 	public void handle(HttpRequest request, HttpResponse response) throws ProtocolException {
 		RequestHandler handler = RequestHandlerFactory.getRequestHandler(request);

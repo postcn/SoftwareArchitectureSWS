@@ -57,10 +57,9 @@ import protocol.Servlet;
 public class PluginManager implements Runnable{
 	//TODO: Implement the rest of the PluginManager
 	
-	@SuppressWarnings("unused")
 	private Map<String, Servlet> locationMapping;
 	private Server parent;
-	final File PLUGIN_FILE = new File("./Plugins"); //This is the directory Location that we are using.
+	final File PLUGIN_FILE = new File("Plugins"); //This is the directory Location that we are using.
 	private WatchService watcher;
 	private Path dir;
 	
@@ -91,9 +90,11 @@ public class PluginManager implements Runnable{
 		if(locationMapping.containsKey(servletPath)){
 			locationMapping.remove(servletPath);
 		}
-		locationMapping.put(servletPath, servlet);	
+		locationMapping.put(PLUGIN_FILE.getAbsolutePath()+File.separator+servletPath, servlet);
+//		System.out.println(PLUGIN_FILE.getAbsolutePath()+File.separator+servletPath);
 	}
 	
+	//unload plugin. shutdown plugin then unload indiv servlets and remove from locaiton mapping
 	public void unload(Servlet servlet){
 		return;//TODO: implement this method
 	}

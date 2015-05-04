@@ -119,7 +119,8 @@ public class ConnectionHandler implements Runnable {
 			String method = request.getMethod();
 			String[] split = request.getUri().split("/");
 			String location = split.length >= 2 ? split[1] : "";
-			String location2 = split.length >= 3 ? location + "/" + request.getUri().split("/")[2] : null;
+			String location2 = split.length >= 3 ? location + "/"
+					+ request.getUri().split("/")[2] : null;
 
 			handler = manager.getServletAtLocation(location);
 			if (location2 != null && handler.getClass() == DefaultServlet.class) {
@@ -133,11 +134,13 @@ public class ConnectionHandler implements Runnable {
 						outStream);
 			}
 
-			try {
-				handler.handle(request, response);
-			} catch (ProtocolException pe) {
-				response = HttpResponseFactory.createResponse(pe.getStatus(),
-						Protocol.CLOSE, null, outStream);
+			else {
+				try {
+					handler.handle(request, response);
+				} catch (ProtocolException pe) {
+					response = HttpResponseFactory.createResponse(
+							pe.getStatus(), Protocol.CLOSE, null, outStream);
+				}
 			}
 
 		}
@@ -145,7 +148,6 @@ public class ConnectionHandler implements Runnable {
 		try {
 			// Write response and we are all done so close the socket
 			response.write();
-			// System.out.println(response);
 			socket.close();
 		} catch (Exception e) {
 			// We will ignore this exception

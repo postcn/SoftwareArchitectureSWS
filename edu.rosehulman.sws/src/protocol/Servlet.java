@@ -57,11 +57,10 @@ public abstract class Servlet {
 	 */
 	public String getRootDirectory() {
 		String serverRoot = running.getRootDirectory();
-		String pluginRoot = container == null ? "" : container.getLocation() + "/";
-		return serverRoot + "/" + pluginRoot+getPath();
+		return serverRoot;
 	}
 	
-	protected void setServer(Server running) {
+	public void setServer(Server running) {
 		this.running = running;
 	}
 	

@@ -57,16 +57,14 @@ import protocol.Servlet;
 public class PluginManager implements Runnable{
 	
 	private Map<String, Servlet> locationMapping;
-//	private Map<String,Plugin> pluginMapping;
 	private Server parent;
-	final File PLUGIN_FOLDER = new File("Plugins"); //This is the directory Location that we are using.
+	final File PLUGIN_FOLDER = new File("Plugins");
 	private WatchService watcher;
 	private Path dir;
-	private enum Action{CREATE}//,MODIFY}
+	private enum Action{CREATE}
 	
 	public PluginManager(Server parent) {
 		this.locationMapping = new HashMap<>();
-//		this.pluginMapping = new HashMap<>();
 		this.parent = parent;
 		if (!PLUGIN_FOLDER.exists()) {
 			PLUGIN_FOLDER.mkdir();
@@ -81,7 +79,6 @@ public class PluginManager implements Runnable{
 	}
 	
 	public Servlet getServletAtLocation(String location) {
-		System.out.println(location);
 		if(locationMapping.containsKey(location)){
 			return locationMapping.get(location);
 		}
@@ -95,15 +92,8 @@ public class PluginManager implements Runnable{
 			locationMapping.remove(servletPath);
 		}
 		locationMapping.put(location, servlet);
-		System.out.println(location);
+		servlet.setServer(parent);
 	}
-	
-//	public void unload(Servlet servlet,String pluginPath){
-//		String location = pluginPath+"//"+servlet.getPath();
-//		if(locationMapping.containsKey(location)){
-//			locationMapping.remove(location);
-//		}
-//	}
 	
 	private void loadPlugin(Plugin plugin, String fileName){
 		plugin.load();
@@ -111,37 +101,25 @@ public class PluginManager implements Runnable{
 		for(int i=0;i<servlets.size();i++){
 			load(servlets.get(i), plugin.getLocation());
 		}
-//		pluginMapping.put(fileName+plugin.getLocation(),plugin);
 	}
 	
-//	private void unloadPlugin(String pluginLocation,String fileName){
-//		Plugin plugin = pluginMapping.get(fileName+pluginLocation);
-//		pluginMapping.remove(fileName+pluginLocation);
-//		plugin.shutdown();
-//		List<Servlet> servlets = plugin.getServlets();
-//		for(int i=0;i<servlets.size();i++){
-//			unload(servlets.get(i),plugin.getLocation());
-//		}
-//	}
 
 	private void registerWatcher() throws IOException{
 		this.dir = PLUGIN_FOLDER.toPath();
 		this.watcher = FileSystems.getDefault().newWatchService();
-		this.dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE);//,StandardWatchEventKinds.ENTRY_MODIFY);
+		this.dir.register(watcher,StandardWatchEventKinds.ENTRY_CREATE);
 	}
 	
 	private void loadPlugins() {
 		File[] files = PLUGIN_FOLDER.listFiles();
 		if (files == null) {
-			// "Critical Error: Plugins directory is missing from current folder"
 			return;
 		}
 		for (int i = 0; i < files.length; i++) {
 			try {
 				loadAndScanJar(files[i],Action.CREATE);
 			} catch (ClassNotFoundException | IOException e) {
-				// "Error occurred while processing file: " + files[i].getName()));
-				// "An Error Occurred while loading a possible jar file: " + e.getLocalizedMessage()
+				e.printStackTrace();
 			}
 		}
 
@@ -177,10 +155,6 @@ public class PluginManager implements Runnable{
 					case CREATE:
 						loadPlugin(plugin,file.getAbsolutePath());
 						break;
-//					case MODIFY:
-//						unloadPlugin(plugin.getLocation(),file.getAbsolutePath());
-//						loadPlugin(plugin,file.getAbsolutePath());
-//						break;
 				}
 			} catch (InstantiationException e1) {
 				e1.printStackTrace();
@@ -219,12 +193,9 @@ public class PluginManager implements Runnable{
 			        	if(kind==StandardWatchEventKinds.ENTRY_CREATE){		        		
 				        	System.out.println("got a create event: "+child);
 				        	action=Action.CREATE;
-				        }//else if(kind==StandardWatchEventKinds.ENTRY_MODIFY){
-//				        	System.out.println("got a modify event: "+child);
-//				        	action=Action.MODIFY;
-//				        }
+				        }
 			        	try {						
-							loadAndScanJar(child.toFile(),action);//TODO: hopefully its something
+							loadAndScanJar(child.toFile(),action);
 						} catch (ClassNotFoundException | IOException e) {
 							e.printStackTrace();
 						}

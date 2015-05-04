@@ -88,7 +88,7 @@ public class PluginManager implements Runnable{
 		return new DefaultServlet(parent);
 	}
 
-	public void load(Servlet servlet, String pluginPath){
+	private void load(Servlet servlet, String pluginPath){
 		String servletPath = servlet.getPath();
 		String location = pluginPath+"/"+servletPath;
 		if(locationMapping.containsKey(servletPath)){

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="12.2">
+<diagram program="umlet" version="11.5.1">
   <zoom_level>10</zoom_level>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>60</x>
-      <y>640</y>
+      <x>370</x>
+      <y>660</y>
       <w>290</w>
       <h>160</h>
     </coordinates>
@@ -16,32 +16,32 @@ bg=orange</panel_attributes>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>60</x>
-      <y>230</y>
-      <w>620</w>
-      <h>310</h>
+      <x>410</x>
+      <y>60</y>
+      <w>320</w>
+      <h>140</h>
     </coordinates>
-    <panel_attributes>Server
+    <panel_attributes>Servlet
 bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>150</x>
-      <y>470</y>
+      <x>460</x>
+      <y>480</y>
       <w>150</w>
-      <h>210</h>
+      <h>220</h>
     </coordinates>
     <panel_attributes>lt=&lt;
 HTTP Request</panel_attributes>
-    <additional_attributes>80;30;80;190</additional_attributes>
+    <additional_attributes>80;30;80;200</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>160</x>
-      <y>450</y>
+      <x>280</x>
+      <y>460</y>
       <w>160</w>
       <h>50</h>
     </coordinates>
@@ -51,30 +51,19 @@ HTTP Request</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>160</x>
-      <y>330</y>
+      <x>280</x>
+      <y>340</y>
       <w>160</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>Request Handler</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>350</x>
-      <y>330</y>
-      <w>160</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>HTTPResponseFactory</panel_attributes>
+    <panel_attributes>Plugin Manager</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>210</x>
-      <y>350</y>
+      <x>330</x>
+      <y>360</y>
       <w>50</w>
       <h>120</h>
     </coordinates>
@@ -85,25 +74,60 @@ HTTP Request</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>290</x>
-      <y>330</y>
-      <w>80</w>
-      <h>50</h>
+      <x>330</x>
+      <y>170</y>
+      <w>160</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;
 </panel_attributes>
-    <additional_attributes>60;30;30;30</additional_attributes>
+    <additional_attributes>140;30;30;170</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>280</x>
-      <y>350</y>
-      <w>160</w>
-      <h>330</h>
+      <x>480</x>
+      <y>170</y>
+      <w>150</w>
+      <h>310</h>
     </coordinates>
     <panel_attributes>lt=&lt;
 HTTP Response</panel_attributes>
-    <additional_attributes>40;310;130;30</additional_attributes>
+    <additional_attributes>80;290;80;220;80;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>200</x>
+      <y>260</y>
+      <w>620</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>Server
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>480</x>
+      <y>460</y>
+      <w>140</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Socket</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>410</x>
+      <y>450</y>
+      <w>90</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;
+</panel_attributes>
+    <additional_attributes>30;30;70;30</additional_attributes>
   </element>
 </diagram>

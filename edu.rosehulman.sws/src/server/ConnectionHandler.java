@@ -24,6 +24,8 @@ package server;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Calendar;
+import java.util.Date;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;
@@ -44,6 +46,8 @@ public class ConnectionHandler implements Runnable {
 	private Server server;
 	private Socket socket;
 	private PluginManager manager;
+	private long start;
+	private long end;
 
 	public ConnectionHandler(Server server, Socket socket, PluginManager manager) {
 		this.server = server;
@@ -95,7 +99,8 @@ public class ConnectionHandler implements Runnable {
 				Protocol.CLOSE, outStream);
 		try {
 			request = HttpRequest.read(inStream);
-			System.out.println(request);
+//			System.out.println(request);
+			start = Calendar.getInstance().getTimeInMillis();
 		} catch (ProtocolException pe) {
 			// We have some sort of protocol exception. Get its status code and
 			// create response
@@ -137,6 +142,7 @@ public class ConnectionHandler implements Runnable {
 			else {
 				try {
 					handler.handle(request, response);
+					
 				} catch (ProtocolException pe) {
 					response = HttpResponseFactory.createResponse(
 							pe.getStatus(), Protocol.CLOSE, null, outStream);
@@ -147,6 +153,9 @@ public class ConnectionHandler implements Runnable {
 
 		try {
 			// Write response and we are all done so close the socket
+			end = Calendar.getInstance().getTimeInMillis();
+			System.out.println("Serviced request in " + (end-start) + " milliseconds.");
+			server.addLatency(end-start);
 			response.write();
 			socket.close();
 		} catch (Exception e) {

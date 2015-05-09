@@ -45,6 +45,9 @@ public class Server implements Runnable {
 	private long connections;
 	private long serviceTime;
 	
+	private double time = 0;
+	private long count = 0;
+	
 	private WebServer window;
 	/**
 	 * @param rootDirectory
@@ -173,5 +176,12 @@ public class Server implements Runnable {
 		if(this.welcomeSocket != null)
 			return this.welcomeSocket.isClosed();
 		return true;
+	}
+	
+	public synchronized void addLatency(long time) {
+		this.time += time;
+		this.count++;
+		
+		System.out.println("SERVER: Average connection = " + this.time / count);
 	}
 }

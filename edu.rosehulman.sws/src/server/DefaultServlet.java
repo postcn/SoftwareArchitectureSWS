@@ -40,6 +40,7 @@ public class DefaultServlet extends Servlet {
 	
 	public DefaultServlet(Server base) {
 		root = base.getRootDirectory();
+		this.setServer(base);
 	}
 
 	/* (non-Javadoc)

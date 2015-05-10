@@ -40,6 +40,7 @@ public class HttpResponse {
 	private String phrase;
 	private Map<String, String> header;
 	private File file;
+	private char[] body;
 	private OutputStream outStream;
 
 	
@@ -135,6 +136,10 @@ public class HttpResponse {
 		this.file = file;
 	}
 	
+	public void setFile(char[] body) {
+		this.body = body;
+	}
+	
 	/**
 	 * Writes the data of the http response object to the output stream.
 	 * 
@@ -177,6 +182,10 @@ public class HttpResponse {
 			}
 			// Close the file input stream, we are done reading
 			inStream.close();
+		}
+		
+		if (this.body != null && this.body.length>0) {
+			out.write(new String(this.body).getBytes());
 		}
 		
 		// Flush the data so that outStream sends everything through the socket 

@@ -23,12 +23,18 @@ package server;
 
 import gui.WebServer;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * This represents a welcoming server for the incoming
@@ -37,6 +43,7 @@ import java.util.HashMap;
  * @author Chandan R. Rupakheti (rupakhet@rose-hulman.edu)
  */
 public class Server implements Runnable {
+	public static final int MAX_CACHE_FILE_SIZE = 4096;
 	public static final int BUFFER_SIZE = 1048576;
 	private static final int MAX_THREADS_PER_USER = 1;
 	private static final int BLACKLIST_PENALTY_UNIT = Calendar.SECOND;
@@ -59,6 +66,7 @@ public class Server implements Runnable {
 	private WebServer window;
 	private HashMap<String, Integer> connectionMap; 
 	private HashMap<String, Calendar> blacklistMap;
+	private HashMap<String, char[]> cache;
 	/**
 	 * @param rootDirectory
 	 * @param port
@@ -78,6 +86,10 @@ public class Server implements Runnable {
 	    this.logManager = new LogManager(new File(LOG_FILE));
 	    Thread thread = new Thread(logManager);
 	    thread.start();
+	    
+	    cache = new HashMap<String, char[]>();
+	    Timer timer = new Timer();
+	    timer.schedule(new ClearCache(), 0, 15000);
 	}
 
 	/**
@@ -134,6 +146,7 @@ public class Server implements Runnable {
 	}
 	
 	public synchronized void removeThread(String ip){
+		System.out.println(ip);
 		if(connectionMap.get(ip)==1){
 			connectionMap.remove(ip);
 		}else{
@@ -235,5 +248,48 @@ public class Server implements Runnable {
 	
 	public LogManager getLogManager() {
 		return logManager;
+	}
+	
+	public char[] inCache(String request) {
+		return cache.get(request);
+	}
+	
+	public synchronized void putInCache(String request, char[] body) {
+		if (body.length > MAX_CACHE_FILE_SIZE) {
+			return;
+		}
+		else {
+			cache.put(request, body);
+		}
+	}
+	
+	public synchronized void putInCache(String request, File file) {
+		if (file.length() > MAX_CACHE_FILE_SIZE) {
+			return;
+		}
+		else {
+			try {
+				char[] contents = new char[(int) file.length()];
+				BufferedReader reader = new BufferedReader(new FileReader(file));
+				reader.read(contents);
+				reader.close();
+				cache.put(request, contents);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private class ClearCache extends TimerTask {
+
+		/* (non-Javadoc)
+		 * @see java.util.TimerTask#run()
+		 */
+		@Override
+		public void run() {
+			cache = new HashMap<>();
+		}
 	}
 }

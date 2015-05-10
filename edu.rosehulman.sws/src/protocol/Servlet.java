@@ -64,6 +64,10 @@ public abstract class Servlet {
 		this.running = running;
 	}
 	
+	public Server getServer() {
+		return running;
+	}
+	
 	public void setPlugin(Plugin container) {
 		this.container = container;
 	}

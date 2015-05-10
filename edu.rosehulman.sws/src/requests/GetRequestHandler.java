@@ -35,6 +35,7 @@ import protocol.HttpResponse;
 import protocol.Protocol;
 import protocol.ProtocolException;
 import protocol.Servlet;
+import server.Server;
 
 /**
  * 
@@ -47,22 +48,33 @@ public class GetRequestHandler implements RequestHandler {
 	@Override
 	public HttpResponse handle(Servlet server, HttpRequest request, HttpResponse toFill) throws ProtocolException {
 		String uri = request.getUri();
-		// Get root directory path from server
-		String rootDirectory = server.getRootDirectory();
-		// Combine them together to form absolute file path
-		File file = new File(rootDirectory + uri);
-		// Check if the file exists
-		if(file.exists()) {
-			if(file.isDirectory()) {
-				// Look for default index.html file in a directory
-				String location = rootDirectory + uri + System.getProperty("file.separator") + Protocol.DEFAULT_FILE;
-				file = new File(location);
+		Server serv = server.getServer();
+		char[] body = serv.inCache(uri);
+		if (body != null) {
+			toFill.setStatus(Protocol.OK_CODE);
+			toFill.setConnection(Protocol.CLOSE);
+			toFill.setFile(body);
+		}
+		else {
+			// Get root directory path from server
+			String rootDirectory = server.getRootDirectory();
+			// Combine them together to form absolute file path
+			File file = new File(rootDirectory + uri);
+			// Check if the file exists
+			if(file.exists()) {
+				if(file.isDirectory()) {
+					// Look for default index.html file in a directory
+					String location = rootDirectory + uri + System.getProperty("file.separator") + Protocol.DEFAULT_FILE;
+					file = new File(location);
+				}
 			}
+			
+			toFill.setStatus(file.exists() ? Protocol.OK_CODE : Protocol.NOT_FOUND_CODE);
+			toFill.setConnection(Protocol.CLOSE);
+			toFill.setFile(file);
+			serv.putInCache(uri, file);
 		}
 		
-		toFill.setStatus(file.exists() ? Protocol.OK_CODE : Protocol.NOT_FOUND_CODE);
-		toFill.setConnection(Protocol.CLOSE);
-		toFill.setFile(file);
 		
 		return toFill;
 	}

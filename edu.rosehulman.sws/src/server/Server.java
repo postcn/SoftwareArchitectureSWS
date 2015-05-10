@@ -26,6 +26,9 @@ import gui.WebServer;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * This represents a welcoming server for the incoming
@@ -35,6 +38,9 @@ import java.net.Socket;
  */
 public class Server implements Runnable {
 	public static final int BUFFER_SIZE = 1048576;
+	private static final int MAX_THREADS_PER_USER = 15;
+	private static final int BLACKLIST_PENALTY_UNIT = Calendar.MINUTE;
+	private static final int BLACKLIST_PENALTY_TIME = 30;
 	
 	private String rootDirectory;
 	private int port;
@@ -49,6 +55,8 @@ public class Server implements Runnable {
 	private long count = 0;
 	
 	private WebServer window;
+	private HashMap<String, Integer> connectionMap; 
+	private HashMap<String, Calendar> blacklistMap;
 	/**
 	 * @param rootDirectory
 	 * @param port
@@ -61,6 +69,8 @@ public class Server implements Runnable {
 		this.serviceTime = 0;
 		this.window = window;
 		this.pluginManager = new PluginManager(this);
+		connectionMap = new HashMap<String,Integer>();
+		blacklistMap = new HashMap<String,Calendar>();
 	    Thread t = new Thread(this.pluginManager);
 	    t.start();
 	}
@@ -117,6 +127,14 @@ public class Server implements Runnable {
 	public synchronized void incrementServiceTime(long value) {
 		this.serviceTime += value;
 	}
+	
+	public synchronized void removeThread(String ip){
+		if(connectionMap.get(ip)==1){
+			connectionMap.remove(ip);
+		}else{
+			connectionMap.put(ip, connectionMap.get(ip)-1);
+		}
+	}
 
 	/**
 	 * The entry method for the main server thread that accepts incoming
@@ -132,10 +150,35 @@ public class Server implements Runnable {
 				// Listen for incoming socket connection
 				// This method block until somebody makes a request
 				Socket connectionSocket = this.welcomeSocket.accept();
-				
 				// Come out of the loop if the stop flag is set
 				if(this.stop)
 					break;
+				
+				String ip = connectionSocket.getInetAddress().getHostAddress();
+				Calendar cal = Calendar.getInstance();
+				
+				if(blacklistMap.containsKey(ip)){
+					if(blacklistMap.get(ip).after(cal)){
+						cal.add(BLACKLIST_PENALTY_UNIT, BLACKLIST_PENALTY_TIME);
+						blacklistMap.put(ip, cal);
+						continue;
+					}else{
+						blacklistMap.remove(ip);
+					}
+				}
+					
+				if(connectionMap.containsKey(ip)){
+					int value = connectionMap.get(ip);
+					if(value>=MAX_THREADS_PER_USER){
+						cal.add(BLACKLIST_PENALTY_UNIT, BLACKLIST_PENALTY_TIME);
+						blacklistMap.put(ip, cal);
+						continue;
+					}else{
+						connectionMap.put(ip, value + 1);
+					}
+				}else{
+					System.out.println("put "+ip);
+				}				
 				
 				// Create a handler for this incoming connection and start the handler in a new thread
 				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket, pluginManager);

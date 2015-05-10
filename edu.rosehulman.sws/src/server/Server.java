@@ -44,10 +44,9 @@ import java.util.TimerTask;
  */
 public class Server implements Runnable {
 	public static final int MAX_CACHE_FILE_SIZE = 4096;
-	public static final int BUFFER_SIZE = 1048576;
-	private static final int MAX_THREADS_PER_USER = 1;
-	private static final int BLACKLIST_PENALTY_UNIT = Calendar.SECOND;
-	private static final int BLACKLIST_PENALTY_TIME = 5;
+	private static final int MAX_THREADS_PER_USER = 15;
+	private static final int BLACKLIST_PENALTY_UNIT = Calendar.MINUTE;
+	private static final int BLACKLIST_PENALTY_TIME = 30;
 	
 	private String rootDirectory;
 	private int port;

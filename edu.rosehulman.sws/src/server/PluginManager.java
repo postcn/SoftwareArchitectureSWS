@@ -61,7 +61,6 @@ public class PluginManager implements Runnable{
 	final File PLUGIN_FOLDER = new File("Plugins");
 	private WatchService watcher;
 	private Path dir;
-	private enum Action{CREATE}
 	
 	public PluginManager(Server parent) {
 		this.locationMapping = new HashMap<>();
@@ -117,7 +116,7 @@ public class PluginManager implements Runnable{
 		}
 		for (int i = 0; i < files.length; i++) {
 			try {
-				loadAndScanJar(files[i],Action.CREATE);
+				loadAndScanJar(files[i]);
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			}
@@ -125,7 +124,7 @@ public class PluginManager implements Runnable{
 
 	}
 
-	private void loadAndScanJar(File file,Action action) throws ClassNotFoundException, ZipException, IOException {
+	private void loadAndScanJar(File file) throws ClassNotFoundException, ZipException, IOException {
 		LinkedList<Class<?>> pluginClasses = new LinkedList<>();
 		JarFile jarFile = new JarFile(file);
 		Enumeration<?> jarEntries = jarFile.entries();
@@ -150,12 +149,7 @@ public class PluginManager implements Runnable{
 		for (Class<?> c : pluginClasses) {
 			try {
 				Plugin plugin = (Plugin) c.newInstance();
-				System.out.println(action);
-				switch(action){
-					case CREATE:
-						loadPlugin(plugin,file.getAbsolutePath());
-						break;
-				}
+				loadPlugin(plugin,file.getAbsolutePath());
 			} catch (InstantiationException e1) {
 				e1.printStackTrace();
 			} catch (IllegalAccessException e1) {
@@ -189,13 +183,8 @@ public class PluginManager implements Runnable{
 		
 			        Path child = dir.resolve(filename);
 			        if (child.getFileName().toString().endsWith(".jar")) {
-			        	Action action = null; 
-			        	if(kind==StandardWatchEventKinds.ENTRY_CREATE){		        		
-				        	System.out.println("got a create event: "+child);
-				        	action=Action.CREATE;
-				        }
 			        	try {						
-							loadAndScanJar(child.toFile(),action);
+							loadAndScanJar(child.toFile());
 						} catch (ClassNotFoundException | IOException e) {
 							e.printStackTrace();
 						}

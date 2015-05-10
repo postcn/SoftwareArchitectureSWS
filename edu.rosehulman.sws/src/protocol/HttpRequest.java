@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import server.Server;
+
 /**
  * Represents a request object for HTTP.
  * 
@@ -99,8 +101,7 @@ public class HttpRequest {
 		// We will fill this object with the data from input stream and return it
 		HttpRequest request = new HttpRequest();
 		
-		InputStreamReader inStreamReader = new InputStreamReader(inputStream);
-		BufferedReader reader = new BufferedReader(inStreamReader);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		
 		//First Request Line: GET /somedir/page.html HTTP/1.1
 		String line = reader.readLine(); // A line ends with either a \r, or a \n, or both
@@ -135,25 +136,16 @@ public class HttpRequest {
 			// Instead of a string tokenizer, we are using string split
 			// Lets break the line into two part with first space as a separator 
 			
-			// First lets trim the line to remove escape characters
-			line = line.trim();
-			
 			// Now, get index of the first occurrence of space
 			int index = line.indexOf(' ');
 			
 			if(index > 0 && index < line.length()-1) {
 				// Now lets break the string in two parts
-				String key = line.substring(0, index); // Get first part, e.g. "Host:"
-				String value = line.substring(index+1); // Get the rest, e.g. "www.rose-hulman.edu"
-				
-				// Lets strip off the white spaces from key if any and change it to lower case
-				key = key.trim().toLowerCase();
+				String key = line.substring(0, index).trim().toLowerCase(); // Get first part, e.g. "Host:" then trim and put it to lower
+				String value = line.substring(index+1).trim(); // Get the rest, e.g. "www.rose-hulman.edu" then trim it
 				
 				// Lets also remove ":" from the key
 				key = key.substring(0, key.length() - 1);
-				
-				// Lets strip white spaces if any from value as well
-				value = value.trim();
 				
 				// Now lets put the key=>value mapping to the header map
 				request.header.put(key, value);
@@ -191,9 +183,8 @@ public class HttpRequest {
 			int read;
 			if (buffer.length > remainingData) {
 				read = input.read(buffer, 0, remainingData);
-			}
-			else {
-				read = input.read(buffer);
+			}else {
+				read = input.read(buffer,0,Protocol.BUFFER_SIZE);
 			}
 			remainingData -= read;
 			if (read == -1 || remainingData == 0) {
@@ -202,7 +193,6 @@ public class HttpRequest {
 			return read;
 		}
 		return -1;
-		
 	}
 	
 	@Override

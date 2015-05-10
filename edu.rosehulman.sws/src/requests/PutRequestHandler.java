@@ -51,7 +51,7 @@ public class PutRequestHandler implements RequestHandler {
 		String rootDirectory = server.getRootDirectory();
 		String uri = request.getUri();
 		File file = new File(rootDirectory + uri);
-		char[] buffer = new char[100];
+		char[] buffer = new char[Protocol.BUFFER_SIZE];
 		boolean doesExist=false;
 		if(file.exists()){
 			doesExist=true;

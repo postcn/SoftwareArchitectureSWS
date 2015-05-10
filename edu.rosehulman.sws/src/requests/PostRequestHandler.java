@@ -37,7 +37,6 @@ import protocol.HttpResponse;
 import protocol.Protocol;
 import protocol.ProtocolException;
 import protocol.Servlet;
-import server.Server;
 
 /**
  * 
@@ -52,7 +51,7 @@ public class PostRequestHandler implements RequestHandler {
 		String rootDirectory = server.getRootDirectory();
 		String uri = request.getUri();
 		File file = new File(rootDirectory + uri);
-		char[] buffer = new char[Server.BUFFER_SIZE];
+		char[] buffer = new char[Protocol.BUFFER_SIZE];
 		
 		try {
 			FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());

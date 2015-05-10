@@ -147,7 +147,7 @@ public class HttpResponse {
 	 * @throws Exception
 	 */
 	public void write() throws Exception {
-		BufferedOutputStream out = new BufferedOutputStream(outStream, Protocol.CHUNK_LENGTH);
+		BufferedOutputStream out = new BufferedOutputStream(outStream, Protocol.BUFFER_SIZE);
 
 		// First status line
 		String line = this.version + Protocol.SPACE + this.status + Protocol.SPACE + this.phrase + Protocol.CRLF;
@@ -172,9 +172,9 @@ public class HttpResponse {
 		if(this.getStatus() == Protocol.OK_CODE && file != null && file.exists()) {
 			// Process text documents
 			FileInputStream fileInStream = new FileInputStream(file);
-			BufferedInputStream inStream = new BufferedInputStream(fileInStream, Protocol.CHUNK_LENGTH);
+			BufferedInputStream inStream = new BufferedInputStream(fileInStream, Protocol.BUFFER_SIZE);
 			
-			byte[] buffer = new byte[Protocol.CHUNK_LENGTH];
+			byte[] buffer = new byte[Protocol.BUFFER_SIZE];
 			int bytesRead = 0;
 			// While there is some bytes to read from file, read each chunk and send to the socket out stream
 			while((bytesRead = inStream.read(buffer)) != -1) {

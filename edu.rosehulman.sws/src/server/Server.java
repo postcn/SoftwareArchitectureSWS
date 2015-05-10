@@ -23,6 +23,7 @@ package server;
 
 import gui.WebServer;
 
+import java.io.File;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -47,6 +48,8 @@ public class Server implements Runnable {
 	private boolean stop;
 	private ServerSocket welcomeSocket;
 	private PluginManager pluginManager;
+	private LogManager logManager;
+	private static final String LOG_FILE = "log.txt";
 	
 	private long connections;
 	private long serviceTime;
@@ -73,6 +76,9 @@ public class Server implements Runnable {
 		blacklistMap = new HashMap<String,Calendar>();
 	    Thread t = new Thread(this.pluginManager);
 	    t.start();
+	    this.logManager = new LogManager(new File(LOG_FILE));
+	    Thread thread = new Thread(logManager);
+	    thread.start();
 	}
 
 	/**
@@ -226,5 +232,9 @@ public class Server implements Runnable {
 		this.count++;
 		
 		System.out.println("SERVER: Average connection = " + this.time / count);
+	}
+	
+	public LogManager getLogManager() {
+		return logManager;
 	}
 }

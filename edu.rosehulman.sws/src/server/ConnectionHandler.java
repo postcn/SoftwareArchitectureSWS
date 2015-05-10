@@ -162,6 +162,9 @@ public class ConnectionHandler implements Runnable {
 			// We will ignore this exception
 			e.printStackTrace();
 		}
+		
+		LogRequest l = new LogRequest(socket.getInetAddress().toString(), request.toString(), response.toString());
+		server.getLogManager().logRequest(l);
 
 		// Increment number of connections by 1
 		server.incrementConnections(1);

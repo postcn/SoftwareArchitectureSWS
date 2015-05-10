@@ -1,0 +1,60 @@
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+GET / HTTP/1.1
+accept-language: en-US,en;q=0.8
+host: localhost:8080
+connection: keep-alive
+cache-control: max-age=0
+accept-encoding: gzip, deflate, sdch
+accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+	----------------------------------
+HTTP/1.1 200 OK
+date: Sat May 09 17:46:24 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+connection: Close
+Provider: Chandan R. Rupakheti
+
+Data: C:\Users\postcn\Documents\Courses\Software Architecture\Server\SoftwareArchitectureSWS\edu.rosehulman.sws\web\index.html
+----------------------------------
+		2015-05-09:17:46:24:158
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+GET /post.html HTTP/1.1
+accept-language: en-US,en;q=0.8
+host: localhost:8080
+connection: keep-alive
+cache-control: no-cache
+accept-encoding: gzip, deflate, sdch
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 200 OK
+date: Sat May 09 17:47:24 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+connection: Close
+Provider: Chandan R. Rupakheti
+
+Data: C:\Users\postcn\Documents\Courses\Software Architecture\Server\SoftwareArchitectureSWS\edu.rosehulman.sws\web\post.html
+----------------------------------
+		2015-05-09:17:47:24:128
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+POST /testPost.txt HTTP/1.1
+content-length: 31
+accept-language: en-US,en;q=0.8
+origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm
+host: localhost:8080
+connection: keep-alive
+content-type: text/plain;charset=UTF-8
+cache-control: no-cache
+accept-encoding: gzip, deflate
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 201 Created
+date: Sat May 09 17:47:39 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+connection: Close
+Provider: Chandan R. Rupakheti
+
+Data: C:\testPost.txt
+----------------------------------
+		2015-05-09:17:47:39:600

@@ -27,7 +27,6 @@ import java.io.File;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -39,9 +38,9 @@ import java.util.HashMap;
  */
 public class Server implements Runnable {
 	public static final int BUFFER_SIZE = 1048576;
-	private static final int MAX_THREADS_PER_USER = 15;
-	private static final int BLACKLIST_PENALTY_UNIT = Calendar.MINUTE;
-	private static final int BLACKLIST_PENALTY_TIME = 30;
+	private static final int MAX_THREADS_PER_USER = 1;
+	private static final int BLACKLIST_PENALTY_UNIT = Calendar.SECOND;
+	private static final int BLACKLIST_PENALTY_TIME = 5;
 	
 	private String rootDirectory;
 	private int port;
@@ -183,8 +182,8 @@ public class Server implements Runnable {
 						connectionMap.put(ip, value + 1);
 					}
 				}else{
-					System.out.println("put "+ip);
-				}				
+					connectionMap.put(ip, 1);
+				}
 				
 				// Create a handler for this incoming connection and start the handler in a new thread
 				ConnectionHandler handler = new ConnectionHandler(this, connectionSocket, pluginManager);

@@ -44,7 +44,7 @@ import java.util.TimerTask;
  */
 public class Server implements Runnable {
 	public static final int MAX_CACHE_FILE_SIZE = 4096;
-	private static final int MAX_THREADS_PER_USER = 15;
+	private static final int MAX_THREADS_PER_USER = 5;
 	private static final int BLACKLIST_PENALTY_UNIT = Calendar.MINUTE;
 	private static final int BLACKLIST_PENALTY_TIME = 30;
 	
@@ -178,6 +178,7 @@ public class Server implements Runnable {
 					if(blacklistMap.get(ip).after(cal)){
 						cal.add(BLACKLIST_PENALTY_UNIT, BLACKLIST_PENALTY_TIME);
 						blacklistMap.put(ip, cal);
+						connectionSocket.close();
 						continue;
 					}else{
 						blacklistMap.remove(ip);
@@ -189,6 +190,7 @@ public class Server implements Runnable {
 					if(value>=MAX_THREADS_PER_USER){
 						cal.add(BLACKLIST_PENALTY_UNIT, BLACKLIST_PENALTY_TIME);
 						blacklistMap.put(ip, cal);
+						connectionSocket.close();
 						continue;
 					}else{
 						connectionMap.put(ip, value + 1);

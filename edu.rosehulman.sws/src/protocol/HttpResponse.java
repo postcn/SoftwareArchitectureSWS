@@ -164,7 +164,10 @@ public class HttpResponse {
 				out.write(line.getBytes());
 			}
 		}
-
+		line =  "Access-Control-Allow-Methods"+ Protocol.SEPERATOR + Protocol.SPACE + "GET, POST, PUT" + Protocol.CRLF;
+		out.write(line.getBytes());
+		line =  "Access-Control-Allow-Origin"+ Protocol.SEPERATOR + Protocol.SPACE + "*" + Protocol.CRLF;
+		out.write(line.getBytes());
 		// Write a blank line
 		out.write(Protocol.CRLF.getBytes());
 

@@ -73,6 +73,10 @@ public class HttpResponseFactory {
 
 		// Lets add extra header with provider info
 		response.put(Protocol.PROVIDER, Protocol.AUTHOR);
+		
+//		response.put("content-type", "application/json");
+		response.put(Protocol.ACCESS_METHODS_KEY,Protocol.ACCESS_METHODS);
+		response.put(Protocol.ACCESS_ORIGIN_KEY,Protocol.ACCESS_ORIGIN);
 	}
 	
 	/**

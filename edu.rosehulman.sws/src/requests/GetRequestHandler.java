@@ -30,6 +30,9 @@ package requests;
 
 import java.io.File;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import protocol.HttpRequest;
 import protocol.HttpResponse;
 import protocol.Protocol;
@@ -50,6 +53,23 @@ public class GetRequestHandler implements RequestHandler {
 		String uri = request.getUri();
 		Server serv = server.getServer();
 		char[] body = serv.inCache(uri);
+//		if(uri.equals("/test.jpg")){
+//			JSONObject jo = new JSONObject();
+//			try {
+//				jo.put("message", "hello world");
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			System.out.println(jo.toString());
+//			
+//			StringBuilder sb = new StringBuilder();
+//			sb.append(jo.toString());
+//			sb.append(Protocol.CRLF);
+//			
+//			body = sb.toString().toCharArray();
+//		}
+		
 		if (body != null) {
 			toFill.setStatus(Protocol.OK_CODE);
 			toFill.setConnection(Protocol.CLOSE);

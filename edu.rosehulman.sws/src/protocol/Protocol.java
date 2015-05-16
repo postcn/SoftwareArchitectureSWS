@@ -96,6 +96,11 @@ public class Protocol {
     public static final String CONTENT_TYPE = "content-type";
     public static final String LOCATION = "location";
     
+    public static final String ACCESS_METHODS_KEY = "Access-Control-Allow-Methods";
+    public static final String ACCESS_METHODS = "GET, POST, PUT, DELETE";
+    public static final String ACCESS_ORIGIN_KEY = "Access-Control-Allow-Origin";
+    public static final String ACCESS_ORIGIN = "*";
+    
     /**
      * A chunk size to be used when reading a file and sending it to a socket. 
      * Rather than reading the whole file at once, we divide the reading of the file

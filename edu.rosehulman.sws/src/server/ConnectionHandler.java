@@ -112,6 +112,7 @@ public class ConnectionHandler implements Runnable {
 			response = HttpResponseFactory.createResponse(
 					Protocol.BAD_REQUEST_CODE, Protocol.CLOSE, null, outStream);
 		}
+//		System.out.println(request.toString());
 
 		// We reached here means no error so far, so lets process further
 		if (response.getStatus() == Protocol.MISSING_METHOD_CODE) {

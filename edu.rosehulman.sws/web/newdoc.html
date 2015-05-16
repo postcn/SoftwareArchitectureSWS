@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.getJSON demo</title>
+  <style>
+  img {
+    height: 100px;
+    float: left;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div id="images"></div>
+GET:<div id="get"></div>
+FileName: <input type="text" id="getFileName" value="File.txt">
+<button onclick="getExists()">Exists</button>
+<button onclick="getReturn()">Return</button>
+<script>
+function getExists() {
+    var value = document.getElementById("getFileName").value
+    var existsURL = "http://localhost:8080/photo/get/exists/"+value
+    document.getElementById("get").innerHTML = existsURL
+$.ajax({
+    type: 'GET',
+    url: existsURL,
+    }).done(function( data ) {
+       console.log(data);
+       document.getElementById("get").innerHTML =
+data;
+    })
+    .error(function(data) {
+        alert("error");
+    });
+}
+function getReturn(){
+    var value = document.getElementById("getFileName").value
+//    var returnURL = "http://localhost:8080/photo/get/return/"+value
+    var returnURL = "http://localhost:8080/"+value
+    document.getElementById("get").innerHTML = returnURL
+$.ajax({
+    type: 'GET',
+    url: returnURL,
+    }).done(function( data ) {
+       console.log(data);
+       document.getElementById("get").innerHTML =
+data;
+    })
+    .error(function(data) {
+        alert("error");
+    });
+};
+</script>
+<br>
+POST:<div id="post"></div>
+FileName: <input type="text" id="postFileName" value="File.txt">
+<br>
+Data: <input type="text" id="postText" value="123456789">
+<button onclick="postCall()">Post</button>
+<script>
+function postCall(){
+  var value = document.getElementById("postFileName").value
+  var text = document.getElementById("postText").value
+  var n = text.length;
+  var postURL = "http://localhost:8080/"+value
+  $.ajax({
+    type: 'POST',
+    url: postURL,
+    contentLength: n,
+    data: text
+    }).done(function( data ) {
+       console.log(data);
+       document.getElementById("post").innerHTML =
+data.message;
+    })
+    .error(function(data) {
+        alert("error");
+    });
+}
+</script>
+<br>PUT:<div id="put"></div>
+FileName: <input type="text" id="putFileName" value="File.txt">
+<br>
+Data: <input type="text" id="putText" value="123456789">
+<button onclick="putCall()">PUT</button>
+<script>
+function putCall() {
+    var value = document.getElementById("putFileName").value
+    var text = document.getElementById("putText").value
+    var n = text.length;
+    var putURL = "http://localhost:8080/"+value
+//    var putURL = "http://localhost:8080/photo/delete/"+value
+    $.ajax({
+    type: 'PUT',
+    url: putURL,
+    contentLength: n,
+    data: text
+    }).done(function( data ) {
+       console.log(data);
+       document.getElementById("put").innerHTML =
+data.message;
+    })
+    .error(function(data) {
+        alert("error");
+    });
+};
+</script>
+<br>DELETE:<div id="delete"></div>
+FileName: <input type="text" id="deleteFileName" value="File.txt">
+<button onclick="deleteCall()">Delete</button>
+<script>
+function deleteCall() {
+    var value = document.getElementById("deleteFileName").value
+    var deleteURL = "http://localhost:8080/"+value
+//    var deleteURL = "http://localhost:8080/photo/delete/"+value
+    document.getElementById("delete").innerHTML = deleteURL
+//	xmlhttp=new XMLHttpRequest()
+ //   xmlhttp.open("DELETE","deleteURL",true);
+//xmlhttp.send()
+    $.ajax({
+    type: 'DELETE',
+    url: deleteURL,
+    }).done(function( data ) {
+       console.log(data);
+       document.getElementById("delete").innerHTML =
+data.message;
+    })
+    .error(function(data) {
+        alert("error");
+    });
+};
+</script>
+<br>QUERY:<div id="query"></div>
+</body>
+</html>

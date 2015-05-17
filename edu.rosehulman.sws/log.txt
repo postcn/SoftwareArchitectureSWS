@@ -111502,3 +111502,132 @@ Provider: Chandan R. Rupakheti
 Data: C:\Users\postcn\Documents\Courses\Software Architecture\Server\SoftwareArchitectureSWS\edu.rosehulman.sws\web\vid.mp4
 ----------------------------------
 		2015-05-10:19:29:34:381
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+GET /photo/get/exists/test.png HTTP/1.1
+accept-language: en-US,en;q=0.8
+host: localhost:8080
+connection: keep-alive
+cache-control: no-cache
+accept-encoding: gzip, deflate, sdch
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 500 Internal Server Error
+date: Sat May 16 21:44:52 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-16:21:44:52:168
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+GET /photo/get/exists/test.png HTTP/1.1
+accept-language: en-US,en;q=0.8
+host: localhost:8080
+connection: keep-alive
+cache-control: no-cache
+accept-encoding: gzip, deflate, sdch
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 -1 Missing Method. Improper HTTPResponse
+date: Sat May 16 23:56:51 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-16:23:56:51:633
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+GET /photo/get/exists/test.jpg HTTP/1.1
+accept-language: en-US,en;q=0.8
+host: localhost:8080
+connection: keep-alive
+cache-control: no-cache
+accept-encoding: gzip, deflate, sdch
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 -1 Missing Method. Improper HTTPResponse
+date: Sat May 16 23:57:30 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-16:23:57:30:859
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+GET /photo/get/exists/test.jpg HTTP/1.1
+accept-language: en-US,en;q=0.8
+host: localhost:8080
+connection: keep-alive
+cache-control: no-cache
+accept-encoding: gzip, deflate, sdch
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 -1 Missing Method. Improper HTTPResponse
+date: Sat May 16 23:57:42 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-16:23:57:42:195
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+GET /photo/get/return/test.jpg HTTP/1.1
+accept-language: en-US,en;q=0.8
+host: localhost:8080
+connection: keep-alive
+cache-control: no-cache
+accept-encoding: gzip, deflate, sdch
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 -1 Missing Method. Improper HTTPResponse
+date: Sat May 16 23:57:51 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-16:23:57:51:116
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+POST /photo/create HTTP/1.1
+content-length: 47378
+accept-language: en-US,en;q=0.8
+origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm
+host: localhost:8080
+connection: keep-alive
+content-type: text/plain;charset=UTF-8
+cache-control: no-cache
+accept-encoding: gzip, deflate
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 200 OK
+date: Sun May 17 00:13:52 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-17:00:13:52:492

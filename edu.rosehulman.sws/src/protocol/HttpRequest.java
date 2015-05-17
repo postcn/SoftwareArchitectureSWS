@@ -184,7 +184,7 @@ public class HttpRequest {
 			if (buffer.length > remainingData) {
 				read = input.read(buffer, 0, remainingData);
 			}else {
-				read = input.read(buffer,0,Protocol.BUFFER_SIZE);
+				read = input.read(buffer,0,buffer.length);
 			}
 			remainingData -= read;
 			if (read == -1 || remainingData == 0) {

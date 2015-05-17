@@ -17,6 +17,7 @@ public class PicturePlugin implements Plugin {
 	public List<Servlet> getServlets() {
 		LinkedList<Servlet> servlets = new LinkedList<>();
 		servlets.add(new GetServlet(manager));
+		servlets.add(new PostServlet(manager));
 		
 		for (Servlet s: servlets) {
 			s.setPlugin(this);

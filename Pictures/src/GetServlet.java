@@ -22,6 +22,7 @@ public class GetServlet extends Servlet {
 	private PictureManager manager;
 	
 	static {
+		acceptedMethods = new LinkedList<String>();
 		acceptedMethods.add("exists");
 		acceptedMethods.add("return");
 	}
@@ -46,12 +47,12 @@ public class GetServlet extends Servlet {
 	public void handle(HttpRequest request, HttpResponse response)
 			throws ProtocolException {
 		String[] split_uri = request.getUri().split("/");
-		if (split_uri.length != 4) {
+		if (split_uri.length != 5) {
 			response.setStatus(Protocol.INTERNAL_SERVER_ERROR_CODE);
 			return;
 		}
-		String method = split_uri[2];
-		String filename = split_uri[3];
+		String method = split_uri[3];
+		String filename = split_uri[4];
 		
 		if (!acceptedMethods.contains(method)) {
 			response.setStatus(Protocol.INTERNAL_SERVER_ERROR_CODE);	

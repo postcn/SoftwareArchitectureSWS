@@ -111631,3 +111631,75 @@ Provider: Chandan R. Rupakheti
 
 ----------------------------------
 		2015-05-17:00:13:52:492
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+PUT /photo/edit HTTP/1.1
+content-length: 47378
+accept-language: en-US,en;q=0.8
+origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm
+host: localhost:8080
+connection: keep-alive
+content-type: text/plain;charset=UTF-8
+cache-control: no-cache
+accept-encoding: gzip, deflate, sdch
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 404 Not Found
+date: Sun May 17 00:21:56 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-17:00:21:56:071
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+POST /photo/create HTTP/1.1
+content-length: 47378
+accept-language: en-US,en;q=0.8
+origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm
+host: localhost:8080
+connection: keep-alive
+content-type: text/plain;charset=UTF-8
+cache-control: no-cache
+accept-encoding: gzip, deflate
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 200 OK
+date: Sun May 17 00:21:58 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-17:00:21:59:002
+/0:0:0:0:0:0:0:1	----------- Header ----------------
+PUT /photo/edit HTTP/1.1
+content-length: 47378
+accept-language: en-US,en;q=0.8
+origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm
+host: localhost:8080
+connection: keep-alive
+content-type: text/plain;charset=UTF-8
+cache-control: no-cache
+accept-encoding: gzip, deflate, sdch
+user-agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36
+accept: */*
+	----------------------------------
+HTTP/1.1 200 OK
+date: Sun May 17 00:22:01 EDT 2015
+server: SimpleWebServer(SWS)/1.0.0 (Windows 7/6.1/amd64)
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+connection: Close
+Provider: Chandan R. Rupakheti
+
+
+----------------------------------
+		2015-05-17:00:22:01:399

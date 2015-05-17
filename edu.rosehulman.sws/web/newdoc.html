@@ -14,98 +14,61 @@
 <body>
 <script>
 $( document ).ready(function() {
-  document.getElementById('postText').addEventListener('change', testfunc, false)
-
+  document.getElementById('postText').addEventListener('change', postCall, false)
+  document.getElementById('putText').addEventListener('change', putCall, false)
 });
 </script>
-<div id="images"></div>
 GET:<div id="get"></div>
-FileName: <input type="text" id="getFileName" value="File.txt">
+FileName: <input type="text" id="getFileName" value="test.jpg">
 <button onclick="getExists()">Exists</button>
 <button onclick="getReturn()">Return</button>
 <script>
 function getExists() {
     var value = document.getElementById("getFileName").value
     var existsURL = "/photo/get/exists/"+value
-    document.getElementById("get").innerHTML = existsURL
+    document.getElementById("get").innerHTML = ""
 $.ajax({
     type: 'GET',
     url: existsURL,
     }).done(function( data ) {
        console.log(data);
-       document.getElementById("get").innerHTML =
-data;
+       document.getElementById("get").innerHTML = data;
     })
     .error(function(data) {
         alert("error");
     });
 }
-globalSave;
 function getReturn(){
    var value = document.getElementById("getFileName").value
    var returnURL = "/photo/get/return/"+value
-    // var returnURL = "/"+value
-    document.getElementById("get").innerHTML = returnURL
+    document.getElementById("get").innerHTML = ""
+	ext = value.split(".")[1];
+	console.log(ext)
 $.ajax({
     type: 'GET',
     url: returnURL,
     }).done(function( data ) {
-       console.log(data);
-
-
-      //  var image = new Image();
-       var pre = "data:image/jpg;base64, "+JSON.parse(data).image
-      //  image.src = pre+data.image
-      console.log(pre)
+       var pre = "data:image/"+ext+";base64, "+JSON.parse(data).image
        $("<img>").attr("src",pre).appendTo("#images")
-      //  document.body.appendChild(image)
-      //  document.getElementById("get").innerHTML = image
     })
     .error(function(data) {
         alert("error");
     });
 };
 </script>
-<br>
+<br><br>
 POST:<div id="post"></div>
-FileName: <input type="text" id="postFileName" value="File.txt">
-<br>
-Data: <input type="File" id="postText">
-<!-- <button onclick="postCall()">Post</button> -->
+FileName: <input type="text" id="postFileName" value="test.jpg"> 
+<input type="File" id="postText">
 <script>
-function postCall(){
-  var value = document.getElementById("postFileName").value
-  var pic = document.getElementById("postText").value
-  var n = pic.length;
-  var postURL = "/photo/create/"+value
-  // var postURL = "/"+value
-  globalSave = pic
-  var reader = new FileReader();
-  reader.readAsDataURL(pic);
-  globalSave = reader
-
-  $.ajax({
-    type: 'POST',
-    url: postURL,
-    contentLength: n,
-    data: reader
-    }).done(function( data ) {
-       console.log(data);
-      //  document.getElementById("post").innerHTML =
-// data.message;
-    })
-    .error(function(data) {
-        alert("error");
-    });
-};
-function testfunc(evt) {
+function postCall(evt) {
     //Retrieve all the files from the FileList object
     var files = evt.target.files;
-
+    
     if (files) {
         for (var i = 0, f; f = files[i]; i++) {
             var r = new FileReader();
-          r.onload = function(e) {
+            r.onload = function(e) {
             var dataURL = r.result;
             var split = dataURL.split("base64,");
             var imageData = split[1];
@@ -131,17 +94,45 @@ function testfunc(evt) {
     }
 }
 </script>
-<br>PUT:<div id="put"></div>
-FileName: <input type="text" id="putFileName" value="File.txt">
-<br>
-Data: <input type="text" id="putText" value="123456789">
-<button onclick="putCall()">PUT</button>
+<br><br>PUT:<div id="put"></div>
+FileName: <input type="text" id="putFileName" value="test.jpg">
+<input type="File" id="putText">
 <script>
-function putCall() {
+function putCall(evt) {
+    //Retrieve all the files from the FileList object
+    var files = evt.target.files;
+    if (files) {
+        for (var i = 0, f; f = files[i]; i++) {
+            var r = new FileReader();
+            r.onload = function(e) {
+            var dataURL = r.result;
+            var split = dataURL.split("base64,");
+            var imageData = split[1];
+            var n = imageData.length;
+            var putURL = "/photo/edit"
+            var value = document.getElementById("putFileName").value
+            $.ajax({
+              type: 'PUT',
+              url: putURL,
+              contentLength: n,
+              data: JSON.stringify({"filename":value,"image":imageData})
+              }).done(function( data ) {
+              })
+              .error(function(data) {
+                  alert("error");
+              });
+          }
+
+          r.readAsDataURL(f);
+        }
+    } else {
+        alert("Failed to load files");
+    }
+}
+/*function putCall() {
     var value = document.getElementById("putFileName").value
     var text = document.getElementById("putText").value
     var n = text.length;
-    // var putURL = "/"+value
     var putURL = "/photo/edit/"+value
     $.ajax({
     type: 'PUT',
@@ -156,15 +147,14 @@ data.message;
     .error(function(data) {
         alert("error");
     });
-};
+};*/
 </script>
-<br>DELETE:<div id="delete"></div>
-FileName: <input type="text" id="deleteFileName" value="File.txt">
+<br><br>DELETE:<div id="delete"></div>
+FileName: <input type="text" id="deleteFileName" value="test.jpg">
 <button onclick="deleteCall()">Delete</button>
 <script>
 function deleteCall() {
     var value = document.getElementById("deleteFileName").value
-    // var deleteURL = "/"+value
    var deleteURL = "/photo/delete/"+value
     document.getElementById("delete").innerHTML = deleteURL
     $.ajax({
@@ -180,14 +170,13 @@ data;
     });
 };
 </script>
-<br>QUERY:<div id="query"></div>
-FileName: <input type="text" id="queryInput" value="">
+<br><br>QUERY:<div id="query"></div>
+Prefix or Extension: <input type="text" id="queryInput" value="">
 <button onclick="searchCall()">Search</button>
 <button onclick="deleteExtCall()">Delete</button>
 <script>
 function searchCall() {
     var value = document.getElementById("queryInput").value
-    // var deleteURL = "/"+value
    var searchURL = "/photo/list/"+value
     document.getElementById("query").innerHTML = searchURL
     $.ajax({
@@ -204,7 +193,6 @@ data;
 };
 function deleteExtCall() {
     var value = document.getElementById("queryInput").value
-    // var deleteURL = "/"+value
    var deleteExtURL = "/photo/list/"+value
     document.getElementById("query").innerHTML = deleteExtURL
     $.ajax({
@@ -220,5 +208,6 @@ data;
     });
 };
 </script>
+<div id="images"></div>
 </body>
 </html>

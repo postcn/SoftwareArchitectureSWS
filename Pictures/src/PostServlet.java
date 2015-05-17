@@ -31,6 +31,7 @@ public class PostServlet extends Servlet {
 	@Override
 	public void handle(HttpRequest request, HttpResponse response)
 			throws ProtocolException {
+		System.out.println("HELLO WORLD!");
 		int length = request.getHeader().get(Protocol.CONTENT_LENGTH) == null ? 100 :Integer.parseInt(request.getHeader().get(Protocol.CONTENT_LENGTH));
 		char[] body = new char[length];
 		StringBuilder build = new StringBuilder();
@@ -41,15 +42,19 @@ public class PostServlet extends Servlet {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("Error reading the body.");
 			response.setStatus(Protocol.INTERNAL_SERVER_ERROR_CODE);
 			return;
 		}
 		
 		JSONObject ret = new JSONObject();
+		System.out.println(build.toString());
 		try {
 			 JSONObject o = new JSONObject(build.toString());
 			 String filename = (String) o.get("filename");
 			 String encoded = (String) o.get("image");
+			 System.out.println(filename);
+			 System.out.println(encoded);
 			 BASE64Decoder decode = new BASE64Decoder();
 			 byte[] contents = decode.decodeBuffer(encoded);
 			 if (manager.createPicture(filename, contents)) {

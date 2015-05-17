@@ -158,7 +158,7 @@ public class ConnectionHandler implements Runnable {
 			// We will ignore this exception
 			e.printStackTrace();
 		}
-		
+		System.out.println(request.toString());
 		LogRequest l = new LogRequest(socket.getInetAddress().toString(), request.toString(), response.toString());
 		server.getLogManager().logRequest(l);
 
@@ -167,6 +167,7 @@ public class ConnectionHandler implements Runnable {
 		// Get the end time
 		long end = System.currentTimeMillis();
 		this.server.incrementServiceTime(end - start);
+		
 		
 		this.server.removeThread(this.socket.getInetAddress().getHostAddress());
 	}

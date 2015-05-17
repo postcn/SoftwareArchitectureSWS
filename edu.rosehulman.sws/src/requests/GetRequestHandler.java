@@ -30,8 +30,8 @@ package requests;
 
 import java.io.File;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONException;
+//import org.json.JSONObject;
 
 import protocol.HttpRequest;
 import protocol.HttpResponse;

@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class PictureManager {
-	public static final File PICTURE_DIRECTORY = new File("Pictures");
+	public static  File PICTURE_DIRECTORY = new File("Pictures");
 	private List<String> pictures;
 	
 
@@ -25,10 +25,12 @@ public class PictureManager {
 	}
 	
 	private void refreshFileList() {
+		PICTURE_DIRECTORY = new File("Pictures");
 		pictures = new ArrayList<String>();
 		for (File f : PICTURE_DIRECTORY.listFiles()) {
 			if (f.isFile()) {
 				pictures.add(f.getName());
+				System.out.println(f.getName());
 			}
 		}
 	}
@@ -47,18 +49,28 @@ public class PictureManager {
 		return retStrings;
 	}
 	
-	public void deleteAll() {
+	public int deleteAll() {
+		int count = 0;
 		for (File f : PICTURE_DIRECTORY.listFiles()) {
-			f.delete();
-		}
-	}
-	
-	public void deleteAllMatching(String type) {
-		for (File f : PICTURE_DIRECTORY.listFiles()) {
-			if (f.getName().endsWith(type)) {
-				f.delete();
+			if (f.delete()) {
+				count++;
 			}
 		}
+		refreshFileList();
+		return count;
+	}
+	
+	public int deleteAllMatching(String type) {
+		int count = 0;
+		for (File f : PICTURE_DIRECTORY.listFiles()) {
+			if (f.getName().endsWith(type)) {
+				if (f.delete()) {
+					count++;
+				}
+			}
+		}
+		refreshFileList();
+		return count;
 	}
 	
 	public File getPicture(String pictureName) {
@@ -73,7 +85,10 @@ public class PictureManager {
 	public boolean deletePicture(String pictureName) {
 		File pictureFile = getPicture(pictureName);
 		if (pictureFile != null) {
-			return pictureFile.delete();
+			if(pictureFile.delete()) {
+				refreshFileList();
+				return true;
+			}
 		}
 		return false;
 	}

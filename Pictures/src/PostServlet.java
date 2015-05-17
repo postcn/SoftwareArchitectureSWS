@@ -45,6 +45,7 @@ public class PostServlet extends Servlet {
 			return;
 		}
 		
+		JSONObject ret = new JSONObject();
 		try {
 			 JSONObject o = new JSONObject(build.toString());
 			 String filename = (String) o.get("filename");
@@ -53,14 +54,27 @@ public class PostServlet extends Servlet {
 			 byte[] contents = decode.decodeBuffer(encoded);
 			 if (manager.createPicture(filename, contents)) {
 				 response.setStatus(Protocol.OK_CODE);
+				 ret.put("status", 200);
 			 } else {
 				 response.setStatus(Protocol.NOT_MODIFIED_CODE);
+				 ret.put("status", 403);
 			 }
 		} catch (JSONException e) {
 			response.setStatus(Protocol.INTERNAL_SERVER_ERROR_CODE);
+			try {
+				ret.put("status", 500);
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
 		} catch (IOException e) {
 			response.setStatus(Protocol.INTERNAL_SERVER_ERROR_CODE);
+			try {
+				ret.put("status", 500);
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
 		}
+		response.setFile(ret.toString().toCharArray());
 	}
 
 	@Override

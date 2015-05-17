@@ -20,7 +20,7 @@ FileName: <input type="text" id="getFileName" value="File.txt">
 <script>
 function getExists() {
     var value = document.getElementById("getFileName").value
-    var existsURL = "http://localhost:8080/photo/get/exists/"+value
+    var existsURL = "/photo/get/exists/"+value
     document.getElementById("get").innerHTML = existsURL
 $.ajax({
     type: 'GET',
@@ -36,8 +36,8 @@ data;
 }
 function getReturn(){
     var value = document.getElementById("getFileName").value
-//    var returnURL = "http://localhost:8080/photo/get/return/"+value
-    var returnURL = "http://localhost:8080/"+value
+//    var returnURL = "/photo/get/return/"+value
+    var returnURL = "/"+value
     document.getElementById("get").innerHTML = returnURL
 $.ajax({
     type: 'GET',
@@ -63,7 +63,7 @@ function postCall(){
   var value = document.getElementById("postFileName").value
   var text = document.getElementById("postText").value
   var n = text.length;
-  var postURL = "http://localhost:8080/"+value
+  var postURL = "/"+value
   $.ajax({
     type: 'POST',
     url: postURL,
@@ -89,8 +89,8 @@ function putCall() {
     var value = document.getElementById("putFileName").value
     var text = document.getElementById("putText").value
     var n = text.length;
-    var putURL = "http://localhost:8080/"+value
-//    var putURL = "http://localhost:8080/photo/delete/"+value
+    var putURL = "/"+value
+//    var putURL = "/photo/delete/"+value
     $.ajax({
     type: 'PUT',
     url: putURL,
@@ -112,8 +112,8 @@ FileName: <input type="text" id="deleteFileName" value="File.txt">
 <script>
 function deleteCall() {
     var value = document.getElementById("deleteFileName").value
-    var deleteURL = "http://localhost:8080/"+value
-//    var deleteURL = "http://localhost:8080/photo/delete/"+value
+    var deleteURL = "/"+value
+//    var deleteURL = "/photo/delete/"+value
     document.getElementById("delete").innerHTML = deleteURL
 //	xmlhttp=new XMLHttpRequest()
  //   xmlhttp.open("DELETE","deleteURL",true);
